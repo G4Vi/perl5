@@ -1,0 +1,5 @@
+make -j4 o//cosmopolitan.a
+make -j4 o//libc/crt/crt.o
+make -j4 o//ape/ape.lds
+make -j4 o//ape/ape.o
+make -j4 o//ape/ape-no-modify-self.o
