@@ -3,3 +3,35 @@ make -j4 o//libc/crt/crt.o
 make -j4 o//ape/ape.lds
 make -j4 o//ape/ape.o
 make -j4 o//ape/ape-no-modify-self.o
+
+perl.h:1357:13: fatal error: sys/param.h: No such file or directory
+ #   include <sys/param.h>
+i_sysparam='undef'
+
+perl.h:1402:14: error: redundant redeclaration of ‘usleep’ [-Werror=redundant-decls]
+ EXTERN_C int usleep(unsigned int);
+              ^~~~~~
+In file included from /home/gavin/cosmo/cosmopolitan/libc/isystem/wchar.h:4,
+                 from perl.h:1115,
+                 from op.c:163:
+/home/gavin/cosmo/cosmopolitan/libc/time/time.h:29:5: note: previous declaration of ‘usleep’ was here
+ int usleep(uint32_t);
+     ^~~~~~
+d_usleepproto='define'
+
+In file included from op.c:163:
+perl.h:1724:13: fatal error: netinet/in.h: No such file or directory
+ #   include <netinet/in.h>
+i_niin='undef'
+
+In file included from op.c:163:
+perl.h:1796:12: fatal error: netdb.h: No such file or directory
+ #  include <netdb.h>
+         ^~~~~~~~~
+i_netdb='undef'
+
+In file included from perl.h:2044,
+                 from op.c:163:
+/home/gavin/cosmo/cosmopolitan/libc/isystem/sys/ioctl.h:6:10: fatal error: libc/sysv/consts/blk.h: No such file or directory
+ #include "libc/sysv/consts/blk.h"
+i_sysioctl='undef'
