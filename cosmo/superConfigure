@@ -18,6 +18,18 @@ fi
 
 echo "<<<SUPERCONFIGURE>>> cosmo isystem at $COSMO_REPO, assuming other files exist as well"
 
+echo "<<<SUPERCONFIGURE>>> making prefix dirs"
+mkdir -p "$PREFIX"
+mkdir -p "$PREFIX/bin"
+
+echo "<<<SUPERCONFIGURE>>> Building cosmo"
+make -C $COSMO_REPO -j4 o//cosmopolitan.a
+make -C $COSMO_REPO -j4 o//libc/crt/crt.o
+make -C $COSMO_REPO -j4 o//ape/ape.lds
+make -C $COSMO_REPO -j4 o//ape/ape.o
+make -C $COSMO_REPO -j4 o//ape/ape-no-modify-self.o
+make -C $COSMO_REPO -j4 o/cosmopolitan.h
+
 cd ../
 
 echo "<<<SUPERCONFIGURE>>> Running Configure"
@@ -30,7 +42,7 @@ echo "<<<SUPERCONFIGURE>>> Running Configure"
 
     #-include $COSMO_REPO/libc/integral/normalize.inc
 
-sh Configure \
+COSMO_STATIC_LIB="$COSMO_REPO/o//cosmopolitan.a" sh Configure \
     -Dprefix="$PREFIX" \
     -Dusedevel \
     -Duserelocatableinc \
@@ -42,12 +54,15 @@ sh Configure \
     -Uusenm \
     -Doptimize="-Os" \
     -Darchname="x86_64-cosmo" \
-    -Unl_langinfo \
+    -Dmyhostname="cosmo" \
+    -Dmydomain="invalid" \
+    -Uso \
+    -Dcf_by="cosmo" \
     -Uusethreads \
     -Uusemultiplicity \
     -DDEBUGGING \
     -Dccflags="-static -nostdlib -nostdinc -fno-pie -no-pie -fno-omit-frame-pointer -pg -mnop-mcount -mno-tls-direct-seg-refs -include $COSMO_REPO/o/cosmopolitan.h -I $COSMO_ISYSTEM" \
-    -Dldflags="-static -nostdlib -nostdinc -fno-pie -Wl,--gc-sections -fuse-ld=bfd -Wl,-T,$COSMO_REPO/o//ape/ape.lds $COSMO_REPO/o//libc/crt/crt.o $COSMO_REPO/o//ape/ape.o" \
+    -Dldflags="-static -nostdlib -nostdinc -fno-pie -no-pie -fno-pie -no-pie -fno-omit-frame-pointer -pg -mnop-mcount -mno-tls-direct-seg-refs -Wl,--gc-sections -fuse-ld=bfd -Wl,-T,$COSMO_REPO/o//ape/ape.lds $COSMO_REPO/o//libc/crt/crt.o $COSMO_REPO/o//ape/ape.o" \
     -Dlibs="$COSMO_REPO/o//cosmopolitan.a"
 
     #-Uusrinc="" \
