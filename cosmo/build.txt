@@ -4,34 +4,130 @@ make -j4 o//ape/ape.lds
 make -j4 o//ape/ape.o
 make -j4 o//ape/ape-no-modify-self.o
 
-perl.h:1357:13: fatal error: sys/param.h: No such file or directory
- #   include <sys/param.h>
-i_sysparam='undef'
+locale.c:2488:21: error: unknown type name 'nl_item'
+ 2488 | Perl_langinfo(const nl_item item)
+      |                     ^~~~~~~
+locale.c:2498:24: error: unknown type name 'nl_item'
+ 2498 | S_my_nl_langinfo(const nl_item item, bool toggle)
+ d_nl_langinfo='undef'
 
-perl.h:1402:14: error: redundant redeclaration of ‘usleep’ [-Werror=redundant-decls]
- EXTERN_C int usleep(unsigned int);
-              ^~~~~~
-In file included from /home/gavin/cosmo/cosmopolitan/libc/isystem/wchar.h:4,
-                 from perl.h:1115,
-                 from op.c:163:
-/home/gavin/cosmo/cosmopolitan/libc/time/time.h:29:5: note: previous declaration of ‘usleep’ was here
- int usleep(uint32_t);
-     ^~~~~~
-d_usleepproto='define'
+libc/zipos/find.c:34: assert(ZIP_CFILE_MAGIC(zipos->map + c) == kZipCfileHdrMagic) failed (tid 17758)
+(/perl -I.. -MTestInit op/lex_assign.t)
 
-In file included from op.c:163:
-perl.h:1724:13: fatal error: netinet/in.h: No such file or directory
- #   include <netinet/in.h>
-i_niin='undef'
+libc/zipos/find.c:34: assert(ZIP_CFILE_MAGIC(zipos->map + c) == kZipCfileHdrMagic) failed (tid 19270)
+can't backtrace b/c `ShowCrashReports` not linked
+(./perl -I.. -MTestInit uni/variables.t)
 
-In file included from op.c:163:
-perl.h:1796:12: fatal error: netdb.h: No such file or directory
- #  include <netdb.h>
-         ^~~~~~~~~
-i_netdb='undef'
+Failed 95 tests out of 339, 71.98% okay.
+        comp/hints.t
+        comp/parser_run.t
+        io/argv.t
+        io/bom.t
+        io/data.t
+        io/dup.t
+        io/errno.t
+        io/fs.t
+        io/open.t
+        io/perlio.t
+        io/pipe.t
+        io/tell.t
+        op/anonsub.t
+        op/array.t
+        op/blocks.t
+        op/bop.t
+        op/caller.t
+        op/chdir.t
+        op/closure.t
+        op/cmpchain.t
+        op/concat2.t
+        op/coreamp.t
+        op/do.t
+        op/each.t
+        op/eval.t
+        op/filetest.t
+        op/fork.t
+        op/glob.t
+        op/goto.t
+        op/gv.t
+        op/heredoc.t
+        op/hexfp.t
+        op/lc.t
+        op/leaky-magic.t
+        op/lex.t
+        op/lex_assign.t
+        op/lexsub.t
+        op/list.t
+        op/local.t
+        op/magic.t
+        op/method.t
+        op/multideref.t
+        op/override.t
+        op/pack.t
+        op/print.t
+        op/range.t
+        op/readdir.t
+        op/readline.t
+        op/recurse.t
+        op/ref.t
+        op/repeat.t
+        op/require_errors.t
+        op/reset.t
+        op/runlevel.t
+        op/smartmatch.t
+        op/sort.t
+        op/splice.t
+        op/split.t
+        op/sprintf.t
+        op/sprintf2.t
+        op/stash.t
+        op/stash_parse_gv.t
+        op/stat.t
+        op/sub.t
+        op/substr.t
+        op/taint.t
+        op/tie.t
+        op/time.t
+        op/tr.t
+        op/tr_latin1.t
+        op/universal.t
+        op/utftaint.t
+        op/warn.t
+        op/while.t
+        op/write.t
+        re/pat.t
+        re/pat_psycho.t
+        re/reg_60508.t
+        re/reg_eval.t
+        re/reg_eval_scope.t
+        re/regex_sets.t
+        re/script_run.t
+        re/subst.t
+        re/substT.t
+        re/subst_wamp.t
+        run/fresh_perl.t
+        run/runenv.t
+        run/runenv_hashseed.t
+        run/switchF2.t
+        run/switchI.t
+        run/switchM.t
+        run/switchd.t
+        run/switches.t
+        run/switchx.t
+        uni/parser.t
+### Since not all tests were successful, you may want to run some of
+### them individually and examine any diagnostic messages they produce.
+### See the INSTALL document's section on "make test".
+Elapsed: 953 sec
+u=1.57  s=1.62  cu=50.94  cs=33.45  scripts=339  tests=456738
+make: *** [makefile:832: minitest] Error 1
 
-In file included from perl.h:2044,
-                 from op.c:163:
-/home/gavin/cosmo/cosmopolitan/libc/isystem/sys/ioctl.h:6:10: fatal error: libc/sysv/consts/blk.h: No such file or directory
- #include "libc/sysv/consts/blk.h"
-i_sysioctl='undef'
+Making test script
+Making normalization test script
+Updating 'mktables.lst'
+libc/zipos/find.c:34: assert(ZIP_CFILE_MAGIC(zipos->map + c) == kZipCfileHdrMagic) failed (tid 20576)
+can't backtrace b/c `ShowCrashReports` not linked
+make: *** [makefile:404: uni.data] Error 23
+
+
+miniperl needs cflags modified to build.
+asserts can only be turned on for debugging

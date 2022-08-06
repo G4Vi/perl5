@@ -6792,7 +6792,7 @@ yes)
 			$rm_try;
 		fi;
 	else
-		echo "$extern_C void *$1$tdc; void *(*(p()))$tdc { return &$1; } int main(int argc, char **argv) { if(p() && p() != (void *)argv[0]) return(0); else return(1); }"> try.c;
+		echo "void *(*(p()))$tdc { return (void*)&$1; } int main(int argc, char **argv) { if(p() && p() != (void *)argv[0]) return(0); else return(1); }"> try.c;
 		$cc -o try $optimize $ccflags $ldflags try.c $libs >/dev/null 2>&1 && tval=true;
 		$rm_try;
 	fi;
