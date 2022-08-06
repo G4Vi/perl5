@@ -1,15 +1,31 @@
-make -j4 o//cosmopolitan.a
-make -j4 o//libc/crt/crt.o
-make -j4 o//ape/ape.lds
-make -j4 o//ape/ape.o
-make -j4 o//ape/ape-no-modify-self.o
+Build instructions, current just builds miniperl
 
+At the same level as the perl5 directory (two levels up from this file) git clone https://github.com/jart/cosmopolitan
+
+Modify cosmopolitan/libc/integral/c.inc ; comment out #pragma GCC diagnostic error "-Wuninitialized", #pragma GCC diagnostic error "-Wmaybe-uninitialized", and #pragma GCC diagnostic error "-Wredundant-decls"
+
+From the cosmopolitan directory: make o/third_party/gcc/bin/x86_64-linux-musl-gcc
+
+cd perl5/cosmo
+
+sh superConfigure
+
+Specify "none" without quotes for hints (Which of these apply, if any?). Default for almost everything, but "none" again for extensions (What extensions do you wish to include?). y to use directories that don't exist (happens like 6 timesish)
+
+When it mentions modifying config.sh change d_nl_langinfo='define' to d_nl_langinfo='undef'
+
+Press enter and let it run make depend.
+
+cd ..
+
+rm -f miniperl miniperl.com lib/buildcustomize.pl && ./Configure -S && make lib/buildcustomize.pl  && ../cosmopolitan/o/third_party/gcc/bin/x86_64-linux-musl-objcopy -S -O binary miniperl miniperl.com
+
+Errors ------------------------------------------------------------------------------
 locale.c:2488:21: error: unknown type name 'nl_item'
  2488 | Perl_langinfo(const nl_item item)
       |                     ^~~~~~~
 locale.c:2498:24: error: unknown type name 'nl_item'
  2498 | S_my_nl_langinfo(const nl_item item, bool toggle)
- d_nl_langinfo='undef'
 
 libc/zipos/find.c:34: assert(ZIP_CFILE_MAGIC(zipos->map + c) == kZipCfileHdrMagic) failed (tid 17758)
 (/perl -I.. -MTestInit op/lex_assign.t)
@@ -127,7 +143,3 @@ Updating 'mktables.lst'
 libc/zipos/find.c:34: assert(ZIP_CFILE_MAGIC(zipos->map + c) == kZipCfileHdrMagic) failed (tid 20576)
 can't backtrace b/c `ShowCrashReports` not linked
 make: *** [makefile:404: uni.data] Error 23
-
-
-miniperl needs cflags modified to build.
-asserts can only be turned on for debugging
