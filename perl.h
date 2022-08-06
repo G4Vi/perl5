@@ -4732,10 +4732,10 @@ equal zero.
 
 #ifndef __cplusplus
 #if !defined(WIN32)
-Uid_t getuid (void);
-Uid_t geteuid (void);
-Gid_t getgid (void);
-Gid_t getegid (void);
+//Uid_t getuid (void);
+//Uid_t geteuid (void);
+//Gid_t getgid (void);
+//Gid_t getegid (void);
 #endif
 #endif
 

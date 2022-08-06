@@ -5,7 +5,8 @@ set -eux
 #HEADER_PATHS=$(realpath "./header_stubs")
 COSMO_REPO=$(realpath "../../cosmopolitan")
 COSMO_GCC=$(realpath "../../cosmopolitan/o/third_party/gcc/bin/x86_64-linux-musl-gcc")
-COSMO_ISYSTEM=$(realpath "../../cosmopolitan/libc/isystem")
+#COSMO_ISYSTEM=$(realpath "../../cosmopolitan/libc/isystem")
+COSMO_ISYSTEM=$(realpath "dummy_isystem")
 SYSROOT=$(realpath "../../sysroot")
 
 PREFIX=$(realpath "../../blead-cosmo")
@@ -27,6 +28,8 @@ echo "<<<SUPERCONFIGURE>>> Running Configure"
     #-Dlocincpth="/does/not/exist" \
     #-Dloclibpth="/does/not/exist" \
 
+    #-include $COSMO_REPO/libc/integral/normalize.inc
+
 sh Configure \
     -Dprefix="$PREFIX" \
     -Dusedevel \
@@ -34,14 +37,16 @@ sh Configure \
     -Dsysroot="$SYSROOT" \
     -Dcc="$COSMO_GCC" \
     -Uusedl \
-    -Uosname="" \
+    -Dosname="cosmo" \
     -Uosvers="" \
     -Uusenm \
     -Doptimize="-Os" \
     -Darchname="x86_64-cosmo" \
+    -Unl_langinfo \
     -Uusethreads \
     -Uusemultiplicity \
-    -Dccflags="-static -nostdlib -nostdinc -fno-pie -no-pie -fno-omit-frame-pointer -pg -mnop-mcount -mno-tls-direct-seg-refs -I$COSMO_REPO -isystem $COSMO_ISYSTEM -include $COSMO_REPO/libc/integral/normalize.inc" \
+    -DDEBUGGING \
+    -Dccflags="-static -nostdlib -nostdinc -fno-pie -no-pie -fno-omit-frame-pointer -pg -mnop-mcount -mno-tls-direct-seg-refs -include $COSMO_REPO/o/cosmopolitan.h -I $COSMO_ISYSTEM" \
     -Dldflags="-static -nostdlib -nostdinc -fno-pie -Wl,--gc-sections -fuse-ld=bfd -Wl,-T,$COSMO_REPO/o//ape/ape.lds $COSMO_REPO/o//libc/crt/crt.o $COSMO_REPO/o//ape/ape.o" \
     -Dlibs="$COSMO_REPO/o//cosmopolitan.a"
 
