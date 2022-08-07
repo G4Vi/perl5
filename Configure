@@ -5401,8 +5401,9 @@ echo " ";
 echo "Checking if your compiler accepts $flag" >&4;
 [ "X$sysroot" != "X" ] && echo "For sysroot = $sysroot";
 echo "int main(void) { return 0; }" > gcctest.c;
-if $cc $_sysroot -O2 $flag -o gcctest gcctest.c 2>gcctest.out && $run ./gcctest; then
+if $cc $_sysroot -O2 $flag -o gcctest $ccflags $ldflags gcctest.c $requiredlibs 2>gcctest.out && $run ./gcctest; then
     echo "Yes, it does." >&4;
+	truncate -s0 gcctest.out;
     if $test -s gcctest.out ; then
         echo "But your platform does not like it:";
         cat gcctest.out;
