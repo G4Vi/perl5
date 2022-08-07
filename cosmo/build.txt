@@ -10,11 +10,8 @@ cd perl5/cosmo
 
 sh superConfigure
 
-Specify "none" without quotes for hints (Which of these apply, if any?). Default for almost everything, but "none" again for extensions (What extensions do you wish to include?). y to use directories that don't exist (happens like 6 timesish)
-
-When it mentions modifying config.sh change d_nl_langinfo='define' to d_nl_langinfo='undef'
-
-Press enter and let it run make depend.
+Press enter a few times and "cosmo" without quotes for hints. At the next prompt you can type: &-d
+and after confirming the default it will continue with our defaults.
 
 cd ..
 
