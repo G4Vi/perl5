@@ -34,40 +34,28 @@ cd ../
 
 echo "<<<SUPERCONFIGURE>>> Running Configure"
 
-    #-Dusrinc="/does/not/exist" \
-    #-Dincpth="/does/not/exist" \
-    #-Dlibpth="/does/not/exist" \
-    #-Dlocincpth="/does/not/exist" \
-    #-Dloclibpth="/does/not/exist" \
+# -Duserelocatableinc \
+# -Uusedl \
+# -Uusenm \
+# -Darchname="x86_64-cosmo" \
+# -Uso \
+# -Uusethreads \
+# -Uusemultiplicity \
+# -Dosname="cosmo" \
 
-    #-include $COSMO_REPO/libc/integral/normalize.inc
+#-Dsysroot="$SYSROOT" \
+#-Dcc="$COSMO_GCC" \
 
-COSMO_STATIC_LIB="$COSMO_REPO/o//cosmopolitan.a" sh Configure \
+#-Dccflags="-static -nostdlib -nostdinc -fno-pie -no-pie -fno-omit-frame-pointer -pg -mnop-mcount -mno-tls-direct-seg-refs -include $COSMO_REPO/o/cosmopolitan.h -I $COSMO_ISYSTEM" \
+#-Dldflags="-static -nostdlib -nostdinc -fno-pie -no-pie -fno-pie -no-pie -fno-omit-frame-pointer -pg -mnop-mcount -mno-tls-direct-seg-refs -Wl,--gc-sections -fuse-ld=bfd -Wl,-T,$COSMO_REPO/o//ape/ape.lds $COSMO_REPO/o//libc/crt/crt.o $COSMO_REPO/o//ape/ape.o" \
+#-Dlibs="$COSMO_REPO/o//cosmopolitan.a"
+#requiredlibs="$COSMO_REPO/o//cosmopolitan.a" \
+COSMO_REPO="$COSMO_REPO" sh Configure -e \
     -Dprefix="$PREFIX" \
     -Dusedevel \
-    -Duserelocatableinc \
-    -Dsysroot="$SYSROOT" \
-    -Dcc="$COSMO_GCC" \
-    -Uusedl \
-    -Dosname="cosmo" \
-    -Uosvers="" \
-    -Uusenm \
     -Doptimize="-Os" \
-    -Darchname="x86_64-cosmo" \
     -Dmyhostname="cosmo" \
     -Dmydomain="invalid" \
-    -Uso \
     -Dcf_by="cosmo" \
-    -Uusethreads \
-    -Uusemultiplicity \
-    -DDEBUGGING \
-    -Dccflags="-static -nostdlib -nostdinc -fno-pie -no-pie -fno-omit-frame-pointer -pg -mnop-mcount -mno-tls-direct-seg-refs -include $COSMO_REPO/o/cosmopolitan.h -I $COSMO_ISYSTEM" \
-    -Dldflags="-static -nostdlib -nostdinc -fno-pie -no-pie -fno-pie -no-pie -fno-omit-frame-pointer -pg -mnop-mcount -mno-tls-direct-seg-refs -Wl,--gc-sections -fuse-ld=bfd -Wl,-T,$COSMO_REPO/o//ape/ape.lds $COSMO_REPO/o//libc/crt/crt.o $COSMO_REPO/o//ape/ape.o" \
-    -Dlibs="$COSMO_REPO/o//cosmopolitan.a"
+    -DDEBUGGING
 
-    #-Uusrinc="" \
-    #-Ulibpth=" " \
-    #-Uloclibpth="" \
-#-Dccflags="-static -nostdlib -nostdinc -fno-pie -no-pie -fno-omit-frame-pointer -pg -mnop-mcount -mno-tls-direct-seg-refs -I$HEADER_PATHS -include $COSMO_LIBDIR/cosmopolitan.h" \
-#-Dldflags="-static -nostdlib -nostdinc -fno-pie -include $COSMO_LIBDIR/cosmopolitan.h -Wl,--gc-sections -fuse-ld=bfd -Wl,-T,$COSMO_LIBDIR/ape.lds -include $COSMO_LIBDIR/cosmopolitan.h $COSMO_LIBDIR/crt.o $COSMO_LIBDIR/ape.o" \
-#-Dlibs="$COSMO_LIBDIR/cosmopolitan.a"
