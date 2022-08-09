@@ -11,6 +11,8 @@ SYSROOT=$(realpath "../../sysroot")
 
 PREFIX=$(realpath "../../blead-cosmo")
 
+COSMO_MODE=${COSMO_MODE:=''};
+
 if [ ! -d $COSMO_ISYSTEM ]; then
     echo "<<<SUPERCONFIGURE>>> cosmo isystem not found"
     exit 1
@@ -22,12 +24,12 @@ echo "<<<SUPERCONFIGURE>>> making prefix dirs"
 mkdir -p "$PREFIX"
 mkdir -p "$PREFIX/bin"
 
-echo "<<<SUPERCONFIGURE>>> Building cosmo"
-make -C $COSMO_REPO -j4 o//cosmopolitan.a
-make -C $COSMO_REPO -j4 o//libc/crt/crt.o
-make -C $COSMO_REPO -j4 o//ape/ape.lds
-make -C $COSMO_REPO -j4 o//ape/ape.o
-make -C $COSMO_REPO -j4 o//ape/ape-no-modify-self.o
+echo "<<<SUPERCONFIGURE>>> Building cosmo, COSMO_MODE=$COSMO_MODE"
+make -C $COSMO_REPO -j4 o/$COSMO_MODE/cosmopolitan.a
+make -C $COSMO_REPO -j4 o/$COSMO_MODE/libc/crt/crt.o
+make -C $COSMO_REPO -j4 o/$COSMO_MODE/ape/ape.lds
+make -C $COSMO_REPO -j4 o/$COSMO_MODE/ape/ape.o
+make -C $COSMO_REPO -j4 o/$COSMO_MODE/ape/ape-no-modify-self.o
 make -C $COSMO_REPO -j4 o/cosmopolitan.h
 
 cd ../
@@ -47,13 +49,13 @@ echo "<<<SUPERCONFIGURE>>> Running Configure"
 #-Dcc="$COSMO_GCC" \
 
 #-Dccflags="-static -nostdlib -nostdinc -fno-pie -no-pie -fno-omit-frame-pointer -pg -mnop-mcount -mno-tls-direct-seg-refs -include $COSMO_REPO/o/cosmopolitan.h -I $COSMO_ISYSTEM" \
-#-Dldflags="-static -nostdlib -nostdinc -fno-pie -no-pie -fno-pie -no-pie -fno-omit-frame-pointer -pg -mnop-mcount -mno-tls-direct-seg-refs -Wl,--gc-sections -fuse-ld=bfd -Wl,-T,$COSMO_REPO/o//ape/ape.lds $COSMO_REPO/o//libc/crt/crt.o $COSMO_REPO/o//ape/ape.o" \
-#-Dlibs="$COSMO_REPO/o//cosmopolitan.a"
-#requiredlibs="$COSMO_REPO/o//cosmopolitan.a" \
-COSMO_REPO="$COSMO_REPO" sh Configure -e \
+#-Dldflags="-static -nostdlib -nostdinc -fno-pie -no-pie -fno-pie -no-pie -fno-omit-frame-pointer -pg -mnop-mcount -mno-tls-direct-seg-refs -Wl,--gc-sections -fuse-ld=bfd -Wl,-T,$COSMO_REPO/o/$COSMO_MODE/ape/ape.lds $COSMO_REPO/o/$COSMO_MODE/libc/crt/crt.o $COSMO_REPO/o/$COSMO_MODE/ape/ape.o" \
+#-Dlibs="$COSMO_REPO/o/$COSMO_MODE/cosmopolitan.a"
+#requiredlibs="$COSMO_REPO/o/$COSMO_MODE/cosmopolitan.a" \
+COSMO_MODE="$COSMO_MODE" COSMO_REPO="$COSMO_REPO" sh Configure -e \
     -Dprefix="$PREFIX" \
     -Dusedevel \
-    -Doptimize="-Os" \
+    -Doptimize="-g" \
     -Dmyhostname="cosmo" \
     -Dmydomain="invalid" \
     -Dcf_by="cosmo" \
