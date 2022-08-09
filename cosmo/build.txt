@@ -15,128 +15,500 @@ and after confirming the default it will continue with our defaults.
 
 cd ..
 
-rm -f miniperl miniperl.com lib/buildcustomize.pl && ./Configure -S && make lib/buildcustomize.pl  && ../cosmopolitan/o/third_party/gcc/bin/x86_64-linux-musl-objcopy -S -O binary miniperl miniperl.com
+rm -f miniperl miniperl.com _miniperl lib/buildcustomize.pl && ./Configure -S && make lib/buildcustomize.pl && make minitest
 
-Errors ------------------------------------------------------------------------------
-locale.c:2488:21: error: unknown type name 'nl_item'
- 2488 | Perl_langinfo(const nl_item item)
-      |                     ^~~~~~~
-locale.c:2498:24: error: unknown type name 'nl_item'
- 2498 | S_my_nl_langinfo(const nl_item item, bool toggle)
-
-libc/zipos/find.c:34: assert(ZIP_CFILE_MAGIC(zipos->map + c) == kZipCfileHdrMagic) failed (tid 17758)
-(/perl -I.. -MTestInit op/lex_assign.t)
-
-libc/zipos/find.c:34: assert(ZIP_CFILE_MAGIC(zipos->map + c) == kZipCfileHdrMagic) failed (tid 19270)
-can't backtrace b/c `ShowCrashReports` not linked
-(./perl -I.. -MTestInit uni/variables.t)
-
-Failed 95 tests out of 339, 71.98% okay.
-        comp/hints.t
-        comp/parser_run.t
-        io/argv.t
-        io/bom.t
-        io/data.t
-        io/dup.t
-        io/errno.t
+You may see some irrelevant test failures if you have been unable
+to build lib/Config.pm, or the Unicode data files.
+ 
+cd t && (rm -f perl; /bin/ln -s ../miniperl perl)
+cd t &&   ./perl -Ilib -I. TEST base/*.t comp/*.t cmd/*.t run/*.t io/*.t re/*.t opbasic/*.t op/*.t uni/*.t perf/*.t </dev/tty
+t/base/cond .................... ok
+t/base/if ...................... ok
+t/base/lex ..................... ok
+t/base/num ..................... ok
+t/base/pat ..................... ok
+t/base/rs ...................... ok
+t/base/term .................... ok
+t/base/translate ............... ok
+t/base/while ................... ok
+t/comp/bproto .................. ok
+t/comp/cmdopt .................. ok
+t/comp/colon ................... ok
+t/comp/decl .................... ok
+t/comp/filter_exception ........ ok
+t/comp/final_line_num .......... ok
+t/comp/fold .................... ok
+t/comp/form_scope .............. ok
+t/comp/hints ................... ok
+t/comp/line_debug .............. ok
+t/comp/multiline ............... ok
+t/comp/opsubs .................. ok
+t/comp/our ..................... ok
+t/comp/package ................. ok
+t/comp/package_block ........... ok
+t/comp/parser .................. ok
+t/comp/parser_run .............. ok
+t/comp/proto ................... ok
+t/comp/redef ................... ok
+t/comp/require ................. ok
+t/comp/retainedlines ........... ok
+t/comp/term .................... ok
+t/comp/uproto .................. ok
+t/comp/use ..................... ok
+t/comp/utf ..................... ok
+t/run/cloexec .................. ok
+t/run/dtrace ................... skipped
+t/run/exit ..................... ok
+t/run/fresh_perl ............... ok
+t/run/locale ................... skipped
+t/run/noswitch ................. ok
+t/run/runenv ................... FAILED--expected 106 tests, saw 0
+t/run/runenv_hashseed .......... FAILED--expected 278 tests, saw 0
+t/run/script ................... ok
+t/run/switch0 .................. ok
+t/run/switchC .................. skipped
+t/run/switchDx ................. skipped
+t/run/switchF .................. ok
+t/run/switchF1 ................. ok
+t/run/switchF2 ................. ok
+t/run/switchI .................. ok
+t/run/switchM .................. ok
+t/run/switcha .................. ok
+t/run/switchd-78586 ............ ok
+t/run/switchd .................. ok
+t/run/switches ................. ok
+t/run/switchn .................. ok
+t/run/switchp .................. ok
+t/run/switcht .................. ok
+t/run/switchx .................. ok
+t/cmd/elsif .................... ok
+t/cmd/for ...................... ok
+t/cmd/mod ...................... ok
+t/cmd/subval ................... ok
+t/cmd/switch ................... ok
+t/io/argv ...................... ok
+t/io/binmode ................... ok
+t/io/bom ....................... ok
+t/io/closepid .................. ok
+t/io/crlf ...................... ok
+t/io/crlf_through .............. ok
+t/io/data ...................... ok
+t/io/defout .................... ok
+t/io/dup ....................... ok
+t/io/eintr ..................... skipped
+t/io/eintr_print ............... skipped
+t/io/errno ..................... ok
+t/io/errnosig .................. ok
+t/io/fflush .................... ok
+t/io/fs ........................ # Failed test 34 - futime at io/fs.t line 263
+#      got "0"
+# expected "1"
+# Failed test 36 - atime: default case at io/fs.t line 529
+# Failed test 37 - mtime: default case at io/fs.t line 530
+Undefined subroutine &Errno::EISDIR called at io/fs.t line 464.
+# Looks like you planned 61 tests but ran 59.
+FAILED at test 34
+t/io/getcwd .................... ok
+t/io/inplace ................... ok
+t/io/iofile .................... skipped
+t/io/iprefix ................... ok
+t/io/layers .................... skipped
+t/io/msg ....................... skipped
+t/io/nargv ..................... ok
+t/io/open ...................... "ENOENT" is not exported by the Errno module
+Can't continue after import errors at io/open.t line 480.
+# Looks like you planned 188 tests but ran 164.
+FAILED--expected 188 tests, saw 164
+t/io/openpid ................... ok
+t/io/paragraph_mode ............ ok
+t/io/perlio .................... ok
+t/io/perlio_fail ............... ok
+t/io/perlio_leaks .............. ok
+t/io/perlio_open ............... skipped
+t/io/pipe ...................... ok
+t/io/print ..................... ok
+t/io/pvbm ...................... ok
+t/io/read ...................... ok
+t/io/say ....................... ok
+t/io/sem ....................... skipped
+t/io/semctl .................... skipped
+t/io/shm ....................... skipped
+t/io/socket .................... skipped
+t/io/socketpair ................ skipped
+t/io/tell ...................... ok
+t/io/through ................... ok
+t/io/utf8 ...................... ok
+t/re/alpha_assertions .......... ok
+t/re/anyof ..................... skipped
+t/re/begin-once ................ ok
+t/re/bigfuzzy_not_utf8 ......... skipped
+t/re/charset ................... ok
+t/re/fold_grind_8 .............. skipped
+t/re/fold_grind_T .............. skipped
+t/re/fold_grind_a .............. skipped
+t/re/fold_grind_aa ............. skipped
+t/re/fold_grind_d .............. skipped
+t/re/fold_grind_l .............. skipped
+t/re/fold_grind_u .............. skipped
+t/re/keep_tabs ................. ok
+t/re/no_utf8_pm ................ ok
+t/re/opt ....................... skipped
+t/re/overload .................. ok
+t/re/pat ....................... FAILED--expected 1214 tests, saw 933
+t/re/pat_advanced .............. skipped
+t/re/pat_advanced_thr .......... skipped
+t/re/pat_psycho ................ ok
+t/re/pat_psycho_thr ............ skipped
+t/re/pat_re_eval ............... ok
+t/re/pat_re_eval_thr ........... skipped
+t/re/pat_rt_report ............. skipped
+t/re/pat_rt_report_thr ......... skipped
+t/re/pat_special_cc ............ ok
+t/re/pat_special_cc_thr ........ skipped
+t/re/pat_thr ................... skipped
+t/re/pos ....................... ok
+t/re/qr-72922 .................. ok
+t/re/qr ........................ ok
+t/re/qr_gc ..................... ok
+t/re/qrstack ................... ok
+t/re/recompile ................. skipped
+t/re/reg_60508 ................. ok
+t/re/reg_email ................. ok
+t/re/reg_email_thr ............. skipped
+t/re/reg_eval .................. ok
+t/re/reg_eval_scope ............ ok
+t/re/reg_fold .................. skipped
+t/re/reg_mesg .................. ok
+t/re/reg_namedcapture .......... skipped
+t/re/reg_nc_tie ................ skipped
+t/re/reg_nocapture ............. ok
+t/re/reg_pmod .................. ok
+t/re/reg_posixcc ............... ok
+t/re/regex_sets ................ ok
+t/re/regex_sets_compat ......... ok
+t/re/regexp .................... ok
+t/re/regexp_noamp .............. ok
+t/re/regexp_nonull ............. skipped
+t/re/regexp_notrie ............. ok
+t/re/regexp_qr ................. ok
+t/re/regexp_qr_embed ........... ok
+t/re/regexp_qr_embed_thr ....... skipped
+t/re/regexp_trielist ........... ok
+t/re/regexp_unicode_prop ....... skipped
+t/re/regexp_unicode_prop_thr ... skipped
+t/re/rt122747 .................. ok
+t/re/rxcode .................... ok
+t/re/script_run ................ ok
+t/re/speed ..................... skipped
+t/re/speed_thr ................. skipped
+t/re/subst ..................... ok
+t/re/substT .................... ok
+t/re/subst_amp ................. ok
+t/re/subst_wamp ................ ok
+t/re/uniprops01 ................ ok
+t/re/uniprops02 ................ ok
+t/re/uniprops03 ................ ok
+t/re/uniprops04 ................ ok
+t/re/uniprops05 ................ ok
+t/re/uniprops06 ................ ok
+t/re/uniprops07 ................ ok
+t/re/uniprops08 ................ ok
+t/re/uniprops09 ................ ok
+t/re/uniprops10 ................ ok
+t/re/user_prop_race_thr ........ skipped
+t/opbasic/arith ................ ok
+t/opbasic/cmp .................. ok
+t/opbasic/concat ............... ok
+t/opbasic/magic_phase .......... ok
+t/opbasic/qq ................... ok
+t/op/64bitint .................. ok
+t/op/aassign ................... ok
+t/op/alarm ..................... ok
+t/op/anonconst ................. ok
+t/op/anonsub ................... ok
+t/op/append .................... ok
+t/op/args ...................... ok
+t/op/arith2 .................... ok
+t/op/array ..................... ok
+t/op/assignwarn ................ ok
+t/op/attrhand .................. skipped
+t/op/attrproto ................. skipped
+t/op/attrs ..................... skipped
+t/op/auto ...................... ok
+t/op/avhv ...................... ok
+t/op/bless ..................... ok
+t/op/blocks .................... ok
+t/op/bool ...................... ok
+t/op/bop ....................... ok
+t/op/caller .................... ok
+t/op/catch ..................... ok
+t/op/chars ..................... ok
+t/op/chdir ..................... "ENOENT" is not exported by the Errno module
+"EBADF" is not exported by the Errno module
+"EINVAL" is not exported by the Errno module
+Can't continue after import errors at op/chdir.t line 18.
+BEGIN failed--compilation aborted at op/chdir.t line 18.
+FAILED--no leader found
+t/op/chop ...................... ok
+t/op/chr ....................... ok
+t/op/closure ................... ok
+t/op/cmpchain .................. ok
+t/op/concat2 ................... ok
+t/op/cond ...................... ok
+t/op/const-optree .............. ok
+t/op/context ................... ok
+t/op/coreamp ................... ok
+t/op/coresubs .................. skipped
+t/op/cproto .................... ok
+t/op/crypt ..................... ok
+t/op/current_sub ............... ok
+t/op/dbm ....................... skipped
+t/op/decl-refs ................. ok
+t/op/defer ..................... ok
+t/op/defined ................... ok
+t/op/defins .................... ok
+t/op/delete .................... ok
+t/op/die ....................... ok
+t/op/die_except ................ ok
+t/op/die_exit .................. ok
+t/op/die_keeperr ............... ok
+t/op/die_unwind ................ ok
+t/op/do ........................ "ENOENT" is not exported by the Errno module
+"EISDIR" is not exported by the Errno module
+Can't continue after import errors at op/do.t line 10.
+BEGIN failed--compilation aborted at op/do.t line 10.
+FAILED--no leader found
+t/op/dor ....................... ok
+t/op/dump ...................... skipped
+t/op/each ...................... ok
+t/op/each_array ................ ok
+t/op/eval ...................... ok
+t/op/evalbytes ................. ok
+t/op/exec ...................... ok
+t/op/exists_sub ................ ok
+t/op/exp ....................... ok
+t/op/fh ........................ ok
+t/op/filehandle ................ skipped
+t/op/filetest .................. ok
+t/op/filetest_stack_ok ......... ok
+t/op/filetest_t ................ ok
+t/op/flip ...................... ok
+t/op/for-many .................. ok
+t/op/for ....................... ok
+t/op/fork ...................... ok
+t/op/fresh_perl_utf8 ........... ok
+t/op/getpid .................... skipped
+t/op/getppid ................... ok
+t/op/glob ...................... ok
+t/op/gmagic .................... ok
+t/op/goto ...................... ok
+t/op/goto_xs ................... skipped
+t/op/grent ..................... ok
+t/op/grep ...................... ok
+t/op/groups .................... skipped
+t/op/gv ........................ ok
+t/op/hash-clear-placeholders ... skipped
+t/op/hash-rt85026 .............. skipped
+t/op/hash ...................... ok
+t/op/hashassign ................ ok
+t/op/hashwarn .................. ok
+t/op/heredoc ................... ok
+t/op/hexfp ..................... ok
+t/op/inc ....................... ok
+t/op/inccode-tie ............... ok
+t/op/inccode ................... ok
+t/op/incfilter ................. skipped
+t/op/index ..................... ok
+t/op/index_thr ................. skipped
+t/op/infnan .................... ok
+t/op/int ....................... ok
+t/op/isa ....................... ok
+t/op/join ...................... ok
+t/op/kill0 ..................... ok
+t/op/kvaslice .................. ok
+t/op/kvhslice .................. ok
+t/op/lc ........................ ok
+t/op/leaky-magic ............... ok
+t/op/length .................... ok
+t/op/lex ....................... ok
+t/op/lex_assign ................ ok
+t/op/lexsub .................... ok
+t/op/lfs ....................... skipped
+t/op/list ...................... ok
+t/op/local ..................... FAILED--expected 319 tests, saw 250
+t/op/localref .................. ok
+t/op/lock ...................... ok
+t/op/loopctl ................... ok
+t/op/lop ....................... ok
+t/op/lvref ..................... ok
+t/op/magic-27839 ............... skipped
+t/op/magic ..................... FAILED--expected 208 tests, saw 132
+t/op/method .................... ok
+t/op/mkdir ..................... ok
+t/op/multideref ................ ok
+t/op/my ........................ ok
+t/op/my_stash .................. ok
+t/op/mydef ..................... ok
+t/op/negate .................... ok
+t/op/not ....................... ok
+t/op/numconvert ................ ok
+t/op/numify .................... ok
+t/op/numify_chkflags ........... skipped
+t/op/oct ....................... ok
+t/op/or ........................ ok
+t/op/ord ....................... ok
+t/op/overload_integer .......... ok
+t/op/override .................. ok
+t/op/pack ...................... FAILED--no leader found
+t/op/packagev .................. ok
+t/op/pos ....................... ok
+t/op/postfixderef .............. ok
+t/op/pow ....................... ok
+t/op/print ..................... ok
+t/op/protowarn ................. ok
+t/op/push ...................... ok
+t/op/pwent ..................... ok
+t/op/qr ........................ ok
+t/op/quotemeta ................. ok
+t/op/rand ...................... ok
+t/op/range ..................... ok
+t/op/read ...................... ok
+t/op/readdir ................... ok
+t/op/readline .................. ok
+t/op/recurse ................... ok
+t/op/ref ....................... ok
+t/op/repeat .................... ok
+t/op/require_37033 ............. ok
+t/op/require_errors ............ # Failed test 42 - do nulstring fails with ENOENT at op/require_errors.t line 227
+FAILED at test 42
+t/op/require_override .......... ok
+t/op/reset ..................... ok
+t/op/reverse ................... ok
+t/op/rt119311 .................. ok
+t/op/runlevel .................. ok
+t/op/select .................... ok
+t/op/setpgrpstack .............. ok
+t/op/sigdispatch ............... ok
+t/op/signame_canonical ......... skipped
+t/op/signatures ................ ok
+t/op/sigsystem ................. skipped
+t/op/sleep ..................... ok
+t/op/smartkve .................. ok
+t/op/smartmatch ................ ok
+t/op/sort ...................... ok
+t/op/splice .................... ok
+t/op/split ..................... ok
+t/op/split_unicode ............. skipped
+t/op/sprintf ................... # Failed test 182 - >%.0e< >1.875< >2e+00< >1e+00< => >1e+0<  at op/sprintf.t line 166
+# Failed test 183 - >%.0e< >0.875< >9e-01< >8e-01< => >8e-1<  at op/sprintf.t line 166
+# Failed test 236 - >%.0g< >12345.6789< >1e+04< >12345.6789<  at op/sprintf.t line 166
+# Failed test 237 - >%\#.0g< >12345.6789< >1.e+04< >12345.6789<  at op/sprintf.t line 166
+FAILED at test 182
+t/op/sprintf2 .................. ok
+t/op/srand ..................... ok
+t/op/sselect ................... ok
+t/op/stash ..................... ok
+t/op/stash_parse_gv ............ ok
+t/op/stat ...................... Undefined subroutine &Errno::ENOENT called at op/stat.t line 642.
+# Looks like you planned 111 tests but ran 107.
+FAILED--expected 111 tests, saw 107
+t/op/stat_errors ............... skipped
+t/op/state ..................... ok
+t/op/study ..................... ok
+t/op/studytied ................. ok
+t/op/sub ....................... ok
+t/op/sub_lval .................. ok
+t/op/substr .................... ok
+t/op/substr_thr ................ skipped
+t/op/svflags ................... skipped
+t/op/svleak .................... skipped
+t/op/switch .................... ok
+t/op/symbolcache ............... ok
+t/op/sysio ..................... ok
+t/op/taint ..................... ok
+t/op/threads-dirh .............. skipped
+t/op/threads ................... skipped
+t/op/tie ....................... ok
+t/op/tie_fetch_count ........... ok
+t/op/tiearray .................. ok
+t/op/tiehandle ................. ok
+t/op/tiehash ................... ok
+t/op/time ...................... ok
+t/op/time_loop ................. ok
+t/op/tr ........................ ok
+t/op/tr_latin1 ................. ok
+t/op/try ....................... ok
+t/op/undef ..................... ok
+t/op/universal ................. ok
+t/op/unlink .................... ok
+t/op/unshift ................... ok
+t/op/upgrade ................... ok
+t/op/utf8cache ................. ok
+t/op/utf8decode ................ ok
+t/op/utf8magic ................. ok
+t/op/utfhash ................... ok
+t/op/utftaint .................. ok
+t/op/vec ....................... ok
+t/op/ver ....................... ok
+t/op/waitpid ................... skipped
+t/op/wantarray ................. ok
+t/op/warn ...................... ok
+t/op/while ..................... ok
+t/op/write ..................... ok
+t/op/yadayada .................. ok
+t/uni/attrs .................... skipped
+t/uni/bless .................... ok
+t/uni/caller ................... ok
+t/uni/chomp .................... ok
+t/uni/class .................... ok
+t/uni/eval ..................... ok
+t/uni/fold ..................... skipped
+t/uni/goto ..................... ok
+t/uni/greek .................... skipped
+t/uni/gv ....................... ok
+t/uni/labels ................... ok
+t/uni/latin2 ................... skipped
+t/uni/lex_utf8 ................. skipped
+t/uni/lower .................... skipped
+t/uni/method ................... ok
+t/uni/opcroak .................. ok
+t/uni/overload ................. ok
+t/uni/package .................. ok
+t/uni/parser ................... ok
+t/uni/readline ................. ok
+t/uni/select ................... ok
+t/uni/sprintf .................. ok
+t/uni/stash .................... ok
+t/uni/tie ...................... ok
+t/uni/title .................... skipped
+t/uni/tr_utf8 .................. ok
+t/uni/universal ................ ok
+t/uni/upper .................... skipped
+t/uni/variables ................ ok
+t/uni/write .................... ok
+t/perf/benchmarks .............. ok
+t/perf/opcount ................. skipped
+t/perf/optree .................. skipped
+t/perf/speed ................... ok
+t/perf/taint ................... skipped
+Failed 13 tests out of 357, 96.36% okay.
         io/fs.t
         io/open.t
-        io/perlio.t
-        io/pipe.t
-        io/tell.t
-        op/anonsub.t
-        op/array.t
-        op/blocks.t
-        op/bop.t
-        op/caller.t
         op/chdir.t
-        op/closure.t
-        op/cmpchain.t
-        op/concat2.t
-        op/coreamp.t
         op/do.t
-        op/each.t
-        op/eval.t
-        op/filetest.t
-        op/fork.t
-        op/glob.t
-        op/goto.t
-        op/gv.t
-        op/heredoc.t
-        op/hexfp.t
-        op/lc.t
-        op/leaky-magic.t
-        op/lex.t
-        op/lex_assign.t
-        op/lexsub.t
-        op/list.t
         op/local.t
         op/magic.t
-        op/method.t
-        op/multideref.t
-        op/override.t
         op/pack.t
-        op/print.t
-        op/range.t
-        op/readdir.t
-        op/readline.t
-        op/recurse.t
-        op/ref.t
-        op/repeat.t
         op/require_errors.t
-        op/reset.t
-        op/runlevel.t
-        op/smartmatch.t
-        op/sort.t
-        op/splice.t
-        op/split.t
         op/sprintf.t
-        op/sprintf2.t
-        op/stash.t
-        op/stash_parse_gv.t
         op/stat.t
-        op/sub.t
-        op/substr.t
-        op/taint.t
-        op/tie.t
-        op/time.t
-        op/tr.t
-        op/tr_latin1.t
-        op/universal.t
-        op/utftaint.t
-        op/warn.t
-        op/while.t
-        op/write.t
         re/pat.t
-        re/pat_psycho.t
-        re/reg_60508.t
-        re/reg_eval.t
-        re/reg_eval_scope.t
-        re/regex_sets.t
-        re/script_run.t
-        re/subst.t
-        re/substT.t
-        re/subst_wamp.t
-        run/fresh_perl.t
         run/runenv.t
         run/runenv_hashseed.t
-        run/switchF2.t
-        run/switchI.t
-        run/switchM.t
-        run/switchd.t
-        run/switches.t
-        run/switchx.t
-        uni/parser.t
 ### Since not all tests were successful, you may want to run some of
 ### them individually and examine any diagnostic messages they produce.
 ### See the INSTALL document's section on "make test".
-Elapsed: 953 sec
-u=1.57  s=1.62  cu=50.94  cs=33.45  scripts=339  tests=456738
-make: *** [makefile:832: minitest] Error 1
-
-Making test script
-Making normalization test script
-Updating 'mktables.lst'
-libc/zipos/find.c:34: assert(ZIP_CFILE_MAGIC(zipos->map + c) == kZipCfileHdrMagic) failed (tid 20576)
-can't backtrace b/c `ShowCrashReports` not linked
-make: *** [makefile:404: uni.data] Error 23
+Elapsed: 167 sec
+u=4.01  s=1.36  cu=62.95  cs=23.80  scripts=357  tests=447671
+Makefile:834: recipe for target 'minitest' failed
+make: *** [minitest] Error 1
