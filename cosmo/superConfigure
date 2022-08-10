@@ -25,12 +25,12 @@ mkdir -p "$PREFIX"
 mkdir -p "$PREFIX/bin"
 
 echo "<<<SUPERCONFIGURE>>> Building cosmo, COSMO_MODE=$COSMO_MODE"
-make -C $COSMO_REPO -j4 o/$COSMO_MODE/cosmopolitan.a
-make -C $COSMO_REPO -j4 o/$COSMO_MODE/libc/crt/crt.o
-make -C $COSMO_REPO -j4 o/$COSMO_MODE/ape/ape.lds
-make -C $COSMO_REPO -j4 o/$COSMO_MODE/ape/ape.o
-make -C $COSMO_REPO -j4 o/$COSMO_MODE/ape/ape-no-modify-self.o
-make -C $COSMO_REPO -j4 o/cosmopolitan.h
+make -C $COSMO_REPO -j4 MODE="$COSMO_MODE" o/$COSMO_MODE/cosmopolitan.a
+make -C $COSMO_REPO -j4 MODE="$COSMO_MODE" o/$COSMO_MODE/libc/crt/crt.o
+make -C $COSMO_REPO -j4 MODE="$COSMO_MODE" o/$COSMO_MODE/ape/ape.lds
+make -C $COSMO_REPO -j4 MODE="$COSMO_MODE" o/$COSMO_MODE/ape/ape.o
+make -C $COSMO_REPO -j4 MODE="$COSMO_MODE" o/$COSMO_MODE/ape/ape-no-modify-self.o
+make -C $COSMO_REPO -j4 MODE="$COSMO_MODE" o/cosmopolitan.h
 
 cd ../
 
