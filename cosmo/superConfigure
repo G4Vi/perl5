@@ -54,8 +54,9 @@ echo "<<<SUPERCONFIGURE>>> Running Configure"
 #requiredlibs="$COSMO_REPO/o/$COSMO_MODE/cosmopolitan.a" \
 COSMO_MODE="$COSMO_MODE" COSMO_REPO="$COSMO_REPO" sh Configure -e \
     -Dprefix="$PREFIX" \
+    -Dsysroot="$SYSROOT" \
     -Dusedevel \
-    -Doptimize="-g" \
+    -Doptimize="-Os" \
     -Dmyhostname="cosmo" \
     -Dmydomain="invalid" \
     -Dcf_by="cosmo" \
