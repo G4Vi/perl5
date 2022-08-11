@@ -36,25 +36,8 @@ cd ../
 
 echo "<<<SUPERCONFIGURE>>> Running Configure"
 
-# -Duserelocatableinc \
-# -Uusedl \
-# -Uusenm \
-# -Darchname="x86_64-cosmo" \
-# -Uso \
-# -Uusethreads \
-# -Uusemultiplicity \
-# -Dosname="cosmo" \
-
-#-Dsysroot="$SYSROOT" \
-#-Dcc="$COSMO_GCC" \
-
-#-Dccflags="-static -nostdlib -nostdinc -fno-pie -no-pie -fno-omit-frame-pointer -pg -mnop-mcount -mno-tls-direct-seg-refs -include $COSMO_REPO/o/cosmopolitan.h -I $COSMO_ISYSTEM" \
-#-Dldflags="-static -nostdlib -nostdinc -fno-pie -no-pie -fno-pie -no-pie -fno-omit-frame-pointer -pg -mnop-mcount -mno-tls-direct-seg-refs -Wl,--gc-sections -fuse-ld=bfd -Wl,-T,$COSMO_REPO/o/$COSMO_MODE/ape/ape.lds $COSMO_REPO/o/$COSMO_MODE/libc/crt/crt.o $COSMO_REPO/o/$COSMO_MODE/ape/ape.o" \
-#-Dlibs="$COSMO_REPO/o/$COSMO_MODE/cosmopolitan.a"
-#requiredlibs="$COSMO_REPO/o/$COSMO_MODE/cosmopolitan.a" \
 COSMO_MODE="$COSMO_MODE" COSMO_REPO="$COSMO_REPO" sh Configure -e \
     -Dprefix="$PREFIX" \
-    -Dsysroot="$SYSROOT" \
     -Dusedevel \
     -Doptimize="-Os" \
     -Dmyhostname="cosmo" \
