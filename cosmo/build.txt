@@ -17,10 +17,12 @@ cd ..
 
 rm -f miniperl miniperl.com _miniperl lib/buildcustomize.pl && ./Configure -S && make lib/buildcustomize.pl && make minitest
 
+~/cosmo/perl5$ make minitest
+ 
 You may see some irrelevant test failures if you have been unable
 to build lib/Config.pm, or the Unicode data files.
  
-cd t && (rm -f perl; /bin/ln -s ../miniperl perl)
+cd t && (rm -f perl; /usr/bin/ln -s ../miniperl perl)
 cd t &&   ./perl -Ilib -I. TEST base/*.t comp/*.t cmd/*.t run/*.t io/*.t re/*.t opbasic/*.t op/*.t uni/*.t perf/*.t </dev/tty
 t/base/cond .................... ok
 t/base/if ...................... ok
@@ -100,14 +102,9 @@ t/io/eintr_print ............... skipped
 t/io/errno ..................... ok
 t/io/errnosig .................. ok
 t/io/fflush .................... ok
-t/io/fs ........................ # Failed test 34 - futime at io/fs.t line 263
-#      got "0"
-# expected "1"
-# Failed test 36 - atime: default case at io/fs.t line 529
-# Failed test 37 - mtime: default case at io/fs.t line 530
-Undefined subroutine &Errno::EISDIR called at io/fs.t line 464.
+t/io/fs ........................ Undefined subroutine &Errno::EISDIR called at io/fs.t line 464.
 # Looks like you planned 61 tests but ran 59.
-FAILED at test 34
+FAILED--expected 61 tests, saw 59
 t/io/getcwd .................... ok
 t/io/inplace ................... ok
 t/io/iofile .................... skipped
@@ -154,7 +151,7 @@ t/re/keep_tabs ................. ok
 t/re/no_utf8_pm ................ ok
 t/re/opt ....................... skipped
 t/re/overload .................. ok
-t/re/pat ....................... FAILED--expected 1214 tests, saw 933
+t/re/pat ....................... ok
 t/re/pat_advanced .............. skipped
 t/re/pat_advanced_thr .......... skipped
 t/re/pat_psycho ................ ok
@@ -333,7 +330,11 @@ t/op/length .................... ok
 t/op/lex ....................... ok
 t/op/lex_assign ................ ok
 t/op/lexsub .................... ok
-t/op/lfs ....................... skipped
+t/op/lfs ....................... # Failed test 6 - tell(BIG) at op/lfs.t line 197
+# Failed test 8 - tell(BIG) at op/lfs.t line 204
+# Failed test 10 - tell(BIG) at op/lfs.t line 208
+# Failed test 12 - tell(BIG) at op/lfs.t line 212
+FAILED at test 6
 t/op/list ...................... ok
 t/op/local ..................... FAILED--expected 319 tests, saw 250
 t/op/localref .................. ok
@@ -359,7 +360,7 @@ t/op/or ........................ ok
 t/op/ord ....................... ok
 t/op/overload_integer .......... ok
 t/op/override .................. ok
-t/op/pack ...................... FAILED--no leader found
+t/op/pack ...................... ok
 t/op/packagev .................. ok
 t/op/pos ....................... ok
 t/op/postfixderef .............. ok
@@ -491,24 +492,22 @@ t/perf/opcount ................. skipped
 t/perf/optree .................. skipped
 t/perf/speed ................... ok
 t/perf/taint ................... skipped
-Failed 13 tests out of 357, 96.36% okay.
+Failed 12 tests out of 359, 96.66% okay.
         io/fs.t
         io/open.t
         op/chdir.t
         op/do.t
+        op/lfs.t
         op/local.t
         op/magic.t
-        op/pack.t
         op/require_errors.t
         op/sprintf.t
         op/stat.t
-        re/pat.t
         run/runenv.t
         run/runenv_hashseed.t
 ### Since not all tests were successful, you may want to run some of
 ### them individually and examine any diagnostic messages they produce.
 ### See the INSTALL document's section on "make test".
-Elapsed: 167 sec
-u=4.01  s=1.36  cu=62.95  cs=23.80  scripts=357  tests=447671
-Makefile:834: recipe for target 'minitest' failed
-make: *** [minitest] Error 1
+Elapsed: 153 sec
+u=5.83  s=1.38  cu=70.65  cs=6.58  scripts=359  tests=462410
+make: *** [makefile:834: minitest] Error 1
