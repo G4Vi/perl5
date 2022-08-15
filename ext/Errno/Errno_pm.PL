@@ -36,6 +36,14 @@ if ($Config{gccversion} ne '' && $^O eq 'MSWin32') {
     process_file('includes.c');
     unlink 'includes.c';
 }
+elsif($^O eq 'cosmo') {
+    open(my $errnofile, '<', "../../../cosmopolitan/libc/errno.h") or
+    die("Failed to open cosmo errno.h");
+    my $pat = '^\s*#\s*define\s+(E\w+)\s+';
+    while(<$errnofile>) {
+       $err{$1} = 1 if /$pat/;
+    }
+}
 else {
     foreach $file (@files) {
 	process_file($file);
@@ -212,12 +220,30 @@ sub write_errno_pm {
     if ($IsMSWin32) {
 	print CPPI qq[#include "../../win32/include/sys/errno2.h"\n];
     }
- 
-    foreach $err (keys %err) {
-	print CPPI '"',$err,'" [[',$err,']]',"\n";
-    }
 
-    close(CPPI);
+    if($^O ne 'cosmo') {
+        foreach $err (keys %err) {
+            print CPPI '"',$err,'" [[',$err,']]',"\n";
+        }
+        close(CPPI);
+    }
+    else {
+        # in cosmo the preprocessor alone isn't enough to determine errno values
+        # instead generate and run an executable to generate the file to be fed to the preprocessor
+        close(CPPI);
+        open(my $CIN, '>', 'errno.c') or
+        die "Cannot open errno.c";
+        print $CIN "#include <stdio.h>\n#include <errno.h>\n";
+        print $CIN "int main(void){\n";
+        foreach my $name (keys %err) {
+            print $CIN '    printf("\\"'.$name.'\\" [[%d]]\n", '."$name);\n";
+        }
+        print $CIN "}\n";
+        close($CIN);
+        system("$Config{cc} $Config{ccflags} errno.c $Config{ldflags} $Config{libs} -o errno") == 0 or die "Failed to compile errno.c";
+        system("./errno > errno.c") == 0 or die "Failed to generate errno.c";
+        unlink('errno');
+    }
 
     {	# BeOS (support now removed) did not enter this block
     # invoke CPP and read the output
@@ -314,9 +340,34 @@ EDQ
     foreach $err (@err) {
 	print "\t$err => $err{$err},\n";
     }
-
+    print "    );\n";
+    if($^O eq 'cosmo') {
+        open(my $uname, '-|', 'uname') or
+        die "Failed to run uname";
+        my $buildos = <$uname>;
+        chomp $buildos;
+        close($uname);
+        print "\n".'    my $buildos = '."'$buildos';\n";
 print <<'ESQ';
-    );
+    # In cosmo the constants of errno change based on the current operating
+    # system. An XS module is provided to load them, however for miniperl's
+    # sake, the constants of the build os are encoded above.
+    unless(eval "use Errno::Runtime; 1;") {
+        open(my $uname, '-|', 'uname') or
+        die "Failed to run uname";
+        my $curos = <$uname>;
+        close($uname);
+        chomp $curos;
+        my $failmsg = "The errno constants in Errno.pm are for miniperl on $buildos only";
+        $curos eq $buildos or die $failmsg;
+        eval "use Config::Perl::V; 1;" or die "Failed to load Config::Perl::V";
+        my $local_config = Config::Perl::V::myconfig();
+        $local_config->{build}{options}{PERL_IS_MINIPERL} or die $failmsg;
+    }
+
+ESQ
+    }
+print <<'ESQ';
     # Generate proxy constant subroutines for all the values.
     # Well, almost all the values. Unfortunately we can't assume that at this
     # point that our symbol table is empty, as code such as if the parser has
