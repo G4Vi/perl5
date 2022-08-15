@@ -102,9 +102,7 @@ t/io/eintr_print ............... skipped
 t/io/errno ..................... ok
 t/io/errnosig .................. ok
 t/io/fflush .................... ok
-t/io/fs ........................ Undefined subroutine &Errno::EISDIR called at io/fs.t line 464.
-# Looks like you planned 61 tests but ran 59.
-FAILED--expected 61 tests, saw 59
+t/io/fs ........................ ok
 t/io/getcwd .................... ok
 t/io/inplace ................... ok
 t/io/iofile .................... skipped
@@ -112,10 +110,7 @@ t/io/iprefix ................... ok
 t/io/layers .................... skipped
 t/io/msg ....................... skipped
 t/io/nargv ..................... ok
-t/io/open ...................... "ENOENT" is not exported by the Errno module
-Can't continue after import errors at io/open.t line 480.
-# Looks like you planned 188 tests but ran 164.
-FAILED--expected 188 tests, saw 164
+t/io/open ...................... ok
 t/io/openpid ................... ok
 t/io/paragraph_mode ............ ok
 t/io/perlio .................... ok
@@ -240,12 +235,7 @@ t/op/bop ....................... ok
 t/op/caller .................... ok
 t/op/catch ..................... ok
 t/op/chars ..................... ok
-t/op/chdir ..................... "ENOENT" is not exported by the Errno module
-"EBADF" is not exported by the Errno module
-"EINVAL" is not exported by the Errno module
-Can't continue after import errors at op/chdir.t line 18.
-BEGIN failed--compilation aborted at op/chdir.t line 18.
-FAILED--no leader found
+t/op/chdir ..................... ok
 t/op/chop ...................... ok
 t/op/chr ....................... ok
 t/op/closure ................... ok
@@ -270,11 +260,7 @@ t/op/die_except ................ ok
 t/op/die_exit .................. ok
 t/op/die_keeperr ............... ok
 t/op/die_unwind ................ ok
-t/op/do ........................ "ENOENT" is not exported by the Errno module
-"EISDIR" is not exported by the Errno module
-Can't continue after import errors at op/do.t line 10.
-BEGIN failed--compilation aborted at op/do.t line 10.
-FAILED--no leader found
+t/op/do ........................ ok
 t/op/dor ....................... ok
 t/op/dump ...................... skipped
 t/op/each ...................... ok
@@ -380,8 +366,7 @@ t/op/recurse ................... ok
 t/op/ref ....................... ok
 t/op/repeat .................... ok
 t/op/require_37033 ............. ok
-t/op/require_errors ............ # Failed test 42 - do nulstring fails with ENOENT at op/require_errors.t line 227
-FAILED at test 42
+t/op/require_errors ............ ok
 t/op/require_override .......... ok
 t/op/reset ..................... ok
 t/op/reverse ................... ok
@@ -410,9 +395,7 @@ t/op/srand ..................... ok
 t/op/sselect ................... ok
 t/op/stash ..................... ok
 t/op/stash_parse_gv ............ ok
-t/op/stat ...................... Undefined subroutine &Errno::ENOENT called at op/stat.t line 642.
-# Looks like you planned 111 tests but ran 107.
-FAILED--expected 111 tests, saw 107
+t/op/stat ...................... ok
 t/op/stat_errors ............... skipped
 t/op/state ..................... ok
 t/op/study ..................... ok
@@ -492,22 +475,19 @@ t/perf/opcount ................. skipped
 t/perf/optree .................. skipped
 t/perf/speed ................... ok
 t/perf/taint ................... skipped
-Failed 12 tests out of 359, 96.66% okay.
-        io/fs.t
-        io/open.t
-        op/chdir.t
-        op/do.t
-        op/lfs.t
-        op/local.t
-        op/magic.t
-        op/require_errors.t
-        op/sprintf.t
-        op/stat.t
-        run/runenv.t
-        run/runenv_hashseed.t
+Failed 6 tests out of 361, 98.34% okay.
+ op/lfs.t
+ op/local.t
+ op/magic.t
+ op/sprintf.t
+ run/runenv.t
+ run/runenv_hashseed.t
 ### Since not all tests were successful, you may want to run some of
 ### them individually and examine any diagnostic messages they produce.
 ### See the INSTALL document's section on "make test".
-Elapsed: 153 sec
-u=5.83  s=1.38  cu=70.65  cs=6.58  scripts=359  tests=462410
+### You have a good chance to get more information by running
+###   ./perl harness
+### in the 't' directory since most (>=80%) of the tests succeeded.
+Elapsed: 159 sec
+u=5.38  s=2.05  cu=74.63  cs=7.47  scripts=361  tests=462525
 make: *** [makefile:834: minitest] Error 1
