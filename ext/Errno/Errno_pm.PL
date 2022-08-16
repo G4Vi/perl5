@@ -37,29 +37,31 @@ if ($Config{gccversion} ne '' && $^O eq 'MSWin32') {
     unlink 'includes.c';
 }
 elsif($^O eq 'cosmo') {
-    open(my $errnofile, '<', "../../../cosmopolitan/libc/errno.h") or
-    die("Failed to open cosmo errno.h");
-    my $pat = '^\s*#\s*define\s+(E\w+)\s+';
-    while(<$errnofile>) {
-       $err{$1} = 1 if /$pat/;
-    }
     # use cosmo's internal api to load the errno names
-#    open(my $cfile, '>', 'errno.c')  or
-#    die("Failed to open errno.c");
-#    print $cfile <<'MAGNUM';
-##include "libc/fmt/magnumstrs.internal.h"
-##include <stdio.h>
-#int main(void)
-#{
-#    for (unsigned i = 0; kErrnoNames[i].x != MAGNUM_TERMINATOR; ++i)
-#    {
-#        printf("%s\n", MAGNUM_STRING(kErrnoNames, i));
-#    }
-#}
-#MAGNUM
-#    close($cfile);
-#    system("$Config{cc} $Config{ccflags} errno.c $Config{ldflags} $Config{libs} -o errno") == 0 or die "Failed to compile errno.c";
-#    die;
+    open(my $cfile, '>', 'errno.c')  or
+    die("Failed to open errno.c");
+    print $cfile <<'MAGNUM';
+#include "libc/fmt/magnumstrs.internal.h"
+#include <stdio.h>
+int main(void)
+{
+    for (unsigned i = 0; kErrnoNames[i].x != MAGNUM_TERMINATOR; ++i)
+    {
+        printf("%s\n", MAGNUM_STRING(kErrnoNames, i));
+    }
+}
+MAGNUM
+    close($cfile);
+    system("$Config{cc} $Config{ccflags} errno.c $Config{ldflags} $Config{libs} -o errno") == 0 or die "Failed to compile errno.c";
+    unlink('errno.c');
+    open(my $errnoout, '-|', './errno') or die "Failed to run errno";
+    while(<$errnoout>) {
+        chomp;
+        $err{$_} = 1;
+    }
+    close($errnoout);
+    unlink('errno');
+    $err{EWOULDBLOCK} = 1; # EWOULDBLOCK isn't in the table as it's the same value as EAGAIN
 }
 else {
     foreach $file (@files) {
