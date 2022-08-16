@@ -26,7 +26,7 @@ ccflags="-static -nostdlib -nostdinc -fno-pie -no-pie -mno-red-zone -fno-omit-fr
 ldflags="-static -nostdlib -nostdinc -fno-pie -no-pie -mno-red-zone -fno-omit-frame-pointer -fno-stack-protector -pg -mnop-mcount -mno-tls-direct-seg-refs -Wl,--gc-sections -fuse-ld=bfd -Wl,-T,$COSMO_REPO/o/$COSMO_MODE/ape/ape.lds $COSMO_REPO/o/$COSMO_MODE/libc/crt/crt.o $COSMO_REPO/o/$COSMO_MODE/ape/ape.o"
 libs="$COSMO_REPO/o/$COSMO_MODE/cosmopolitan.a"
 requiredlibs="$COSMO_REPO/o/$COSMO_MODE/cosmopolitan.a"
-static_ext='none'
+static_ext='Errno/Runtime'
 unset COSMO_DUMMYDIR
 unset COSMO_REPO
 unset COSMO_MODE
