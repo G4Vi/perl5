@@ -3,8 +3,7 @@
 #include "perl.h"
 #include "XSUB.h"
 #include <errno.h>
-
-#include "errno-runtime-generated.inc"
+#include "libc/fmt/magnumstrs.internal.h"
 
 MODULE = Errno::Runtime		PACKAGE = Errno::Runtime
 
@@ -12,17 +11,22 @@ IV
 strtoerrno(name)
         const char *name
         CODE:
-            const unsigned errnolen = sizeof(names) / sizeof(names[0]);
             unsigned i;
-            for(i = 0; i < errnolen; i++)
+            RETVAL = 0;
+            for (i = 0; kErrnoNames[i].x != MAGNUM_TERMINATOR; ++i)
             {
-                if(strcmp(name, names[i]) == 0)
+                if(strcmp(name, MAGNUM_STRING(kErrnoNames, i)) == 0)
                 {
-                    RETVAL = *(values[i]);
+                    RETVAL = MAGNUM_NUMBER(kErrnoNames, i);
                     break;
                 }
             }
-            if(i == errnolen)
+            // EWOULDBLOCK isn't in the table as it's the same as EAGAIN
+            if(strcmp(name, "EWOULDBLOCK") == 0)
+            {
+                RETVAL = EWOULDBLOCK;
+            }
+            else if(kErrnoNames[i].x == MAGNUM_TERMINATOR)
             {
                 croak("Unknown Errno constant %s", name);
             }
