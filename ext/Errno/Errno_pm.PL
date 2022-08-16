@@ -352,7 +352,12 @@ print <<'ESQ';
     # In cosmo the constants of errno change based on the current operating
     # system. An XS module is provided to load them, however for miniperl's
     # sake, the constants of the build os are encoded above.
-    unless(eval "use Errno::Runtime; 1;") {
+    if(eval "use Errno::Runtime; 1;") {
+        foreach my $key (keys %err) {
+            $err{$key} = Errno::Runtime::strtoerrno($key);
+        }
+    }
+    else {
         open(my $uname, '-|', 'uname') or
         die "Failed to run uname";
         my $curos = <$uname>;
