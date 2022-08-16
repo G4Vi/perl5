@@ -1,24 +1,16 @@
 #! /bin/sh 
 set -eux
 
-#COSMO_LIBDIR=$(realpath "../../cosmopolitan/")
-#HEADER_PATHS=$(realpath "./header_stubs")
 COSMO_REPO=$(realpath "../../cosmopolitan")
-COSMO_GCC=$(realpath "../../cosmopolitan/o/third_party/gcc/bin/x86_64-linux-musl-gcc")
-#COSMO_ISYSTEM=$(realpath "../../cosmopolitan/libc/isystem")
-COSMO_ISYSTEM=$(realpath "dummy_isystem")
-SYSROOT=$(realpath "../../sysroot")
-
 PREFIX=$(realpath "../../blead-cosmo")
-
 COSMO_MODE=${COSMO_MODE:=''};
 
-if [ ! -d $COSMO_ISYSTEM ]; then
-    echo "<<<SUPERCONFIGURE>>> cosmo isystem not found"
+if [ ! -d $COSMO_REPO ]; then
+    echo "<<<SUPERCONFIGURE>>> cosmo repo not found"
     exit 1
 fi
 
-echo "<<<SUPERCONFIGURE>>> cosmo isystem at $COSMO_REPO, assuming other files exist as well"
+echo "<<<SUPERCONFIGURE>>> cosmo repo at $COSMO_REPO, assuming other files exist as well"
 
 echo "<<<SUPERCONFIGURE>>> making prefix dirs"
 mkdir -p "$PREFIX"
