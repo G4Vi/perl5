@@ -43,6 +43,23 @@ elsif($^O eq 'cosmo') {
     while(<$errnofile>) {
        $err{$1} = 1 if /$pat/;
     }
+    # use cosmo's internal api to load the errno names
+#    open(my $cfile, '>', 'errno.c')  or
+#    die("Failed to open errno.c");
+#    print $cfile <<'MAGNUM';
+##include "libc/fmt/magnumstrs.internal.h"
+##include <stdio.h>
+#int main(void)
+#{
+#    for (unsigned i = 0; kErrnoNames[i].x != MAGNUM_TERMINATOR; ++i)
+#    {
+#        printf("%s\n", MAGNUM_STRING(kErrnoNames, i));
+#    }
+#}
+#MAGNUM
+#    close($cfile);
+#    system("$Config{cc} $Config{ccflags} errno.c $Config{ldflags} $Config{libs} -o errno") == 0 or die "Failed to compile errno.c";
+#    die;
 }
 else {
     foreach $file (@files) {
