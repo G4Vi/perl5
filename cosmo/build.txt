@@ -381,11 +381,7 @@ t/op/sort ...................... ok
 t/op/splice .................... ok
 t/op/split ..................... ok
 t/op/split_unicode ............. skipped
-t/op/sprintf ................... # Failed test 182 - >%.0e< >1.875< >2e+00< >1e+00< => >1e+0<  at op/sprintf.t line 166
-# Failed test 183 - >%.0e< >0.875< >9e-01< >8e-01< => >8e-1<  at op/sprintf.t line 166
-# Failed test 236 - >%.0g< >12345.6789< >1e+04< >12345.6789<  at op/sprintf.t line 166
-# Failed test 237 - >%\#.0g< >12345.6789< >1.e+04< >12345.6789<  at op/sprintf.t line 166
-FAILED at test 182
+t/op/sprintf ................... ok
 t/op/sprintf2 .................. ok
 t/op/srand ..................... ok
 t/op/sselect ................... ok
@@ -471,14 +467,6 @@ t/perf/opcount ................. skipped
 t/perf/optree .................. skipped
 t/perf/speed ................... ok
 t/perf/taint ................... skipped
-Failed 1 test out of 361, 99.72% okay.
-        op/sprintf.t
-### Since not all tests were successful, you may want to run some of
-### them individually and examine any diagnostic messages they produce.
-### See the INSTALL document's section on "make test".
-### You have a good chance to get more information by running
-###   ./perl harness
-### in the 't' directory since most (>=80%) of the tests succeeded.
-Elapsed: 159 sec
-u=9.28  s=2.57  cu=123.73  cs=15.18  scripts=361  tests=462525
-make: *** [makefile:834: minitest] Error 1
+All tests successful.
+Elapsed: 161 sec
+u=10.13  s=2.08  cu=127.47  cs=14.90  scripts=361  tests=462525
