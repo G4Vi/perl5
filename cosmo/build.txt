@@ -17,7 +17,7 @@ cd ..
 
 rm -f miniperl miniperl.com _miniperl lib/buildcustomize.pl && ./Configure -S && make lib/buildcustomize.pl && make minitest
 
-~/cosmo/perl5$ make minitest
+:~/cosmo/perl5$ make minitest
  
 You may see some irrelevant test failures if you have been unable
 to build lib/Config.pm, or the Unicode data files.
@@ -64,8 +64,8 @@ t/run/exit ..................... ok
 t/run/fresh_perl ............... ok
 t/run/locale ................... skipped
 t/run/noswitch ................. ok
-t/run/runenv ................... FAILED--expected 106 tests, saw 0
-t/run/runenv_hashseed .......... FAILED--expected 278 tests, saw 0
+t/run/runenv ................... ok
+t/run/runenv_hashseed .......... ok
 t/run/script ................... ok
 t/run/switch0 .................. ok
 t/run/switchC .................. skipped
@@ -316,20 +316,16 @@ t/op/length .................... ok
 t/op/lex ....................... ok
 t/op/lex_assign ................ ok
 t/op/lexsub .................... ok
-t/op/lfs ....................... # Failed test 6 - tell(BIG) at op/lfs.t line 197
-# Failed test 8 - tell(BIG) at op/lfs.t line 204
-# Failed test 10 - tell(BIG) at op/lfs.t line 208
-# Failed test 12 - tell(BIG) at op/lfs.t line 212
-FAILED at test 6
+t/op/lfs ....................... ok
 t/op/list ...................... ok
-t/op/local ..................... FAILED--expected 319 tests, saw 250
+t/op/local ..................... ok
 t/op/localref .................. ok
 t/op/lock ...................... ok
 t/op/loopctl ................... ok
 t/op/lop ....................... ok
 t/op/lvref ..................... ok
 t/op/magic-27839 ............... skipped
-t/op/magic ..................... FAILED--expected 208 tests, saw 132
+t/op/magic ..................... ok
 t/op/method .................... ok
 t/op/mkdir ..................... ok
 t/op/multideref ................ ok
@@ -475,13 +471,8 @@ t/perf/opcount ................. skipped
 t/perf/optree .................. skipped
 t/perf/speed ................... ok
 t/perf/taint ................... skipped
-Failed 6 tests out of 361, 98.34% okay.
- op/lfs.t
- op/local.t
- op/magic.t
- op/sprintf.t
- run/runenv.t
- run/runenv_hashseed.t
+Failed 1 test out of 361, 99.72% okay.
+        op/sprintf.t
 ### Since not all tests were successful, you may want to run some of
 ### them individually and examine any diagnostic messages they produce.
 ### See the INSTALL document's section on "make test".
@@ -489,5 +480,5 @@ Failed 6 tests out of 361, 98.34% okay.
 ###   ./perl harness
 ### in the 't' directory since most (>=80%) of the tests succeeded.
 Elapsed: 159 sec
-u=5.38  s=2.05  cu=74.63  cs=7.47  scripts=361  tests=462525
+u=9.28  s=2.57  cu=123.73  cs=15.18  scripts=361  tests=462525
 make: *** [makefile:834: minitest] Error 1
