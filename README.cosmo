@@ -1,0 +1,47 @@
+If you read this file _as_is_, just ignore the funny characters you see.
+It is written in the POD format (see pod/perlpod.pod) which is specially
+designed to be readable as is.
+
+=head1 NAME
+
+perlcosmo - Build-once run-anywhere Perl using the cosmopolitan libc
+
+=head1 DESCRIPTION
+
+This file contains instructions how to build Perl with the cosmopolitan
+libc and lists known problems.
+
+=head1 BUILD AND INSTALL
+
+Download the cosmopolitan libc:
+  cd .. && git clone https://github.com/jart/cosmopolitan
+
+Modify cosmopolitan/libc/integral/c.inc ; comment out
+#pragma GCC diagnostic error "-Wuninitialized",
+#pragma GCC diagnostic error "-Wmaybe-uninitialized",
+and #pragma GCC diagnostic error "-Wredundant-decls"
+
+Run superConfigure
+  cd perl5/cosmo
+  sh superConfigure
+
+Enter cosmo when prompted for hints. Then let it run with defaults.
+  cosmo<ENTER>
+  &-d<ENTER>
+
+Finally make
+  make
+
+=head1 KNOWN PROBLEMS
+
+cosmo perl is a work in progress, make minitest passes now, but
+several static extensions fail to build. Only works with self-modifying
+ape loader.
+
+=back
+
+=head1 CONTACT
+
+The port in-progress is being done by Gavin Hayes <gahayes@cpan.org>
+
+Last update: 2022-08-19
