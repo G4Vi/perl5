@@ -1,21 +1,4 @@
-Build instructions, current just builds miniperl
-
-At the same level as the perl5 directory (two levels up from this file) git clone https://github.com/jart/cosmopolitan
-
-Modify cosmopolitan/libc/integral/c.inc ; comment out #pragma GCC diagnostic error "-Wuninitialized", #pragma GCC diagnostic error "-Wmaybe-uninitialized", and #pragma GCC diagnostic error "-Wredundant-decls"
-
-From the cosmopolitan directory: make o/third_party/gcc/bin/x86_64-linux-musl-gcc
-
-cd perl5/cosmo
-
-sh superConfigure
-
-Press enter a few times and "cosmo" without quotes for hints. At the next prompt you can type: &-d
-and after confirming the default it will continue with our defaults.
-
-cd ..
-
-rm -f miniperl miniperl.com _miniperl lib/buildcustomize.pl && ./Configure -S && make lib/buildcustomize.pl && make minitest
+Test output log
 
 :~/cosmo/perl5$ make minitest
  
