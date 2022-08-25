@@ -1244,6 +1244,7 @@ static const scan_data_t zero_scan_data = {
 #endif /*PERL_ENABLE_EXPERIMENTAL_REGEX_OPTIMISATIONS*/
 
 #ifdef DEBUGGING
+#ifndef PERL_IN_XSUB_RE
 int
 Perl_re_printf(pTHX_ const char *fmt, ...)
 {
@@ -1270,6 +1271,7 @@ Perl_re_indentf(pTHX_ const char *fmt, U32 depth, ...)
     va_end(ap);
     return result;
 }
+#endif /* PERL_IN_XSUB_RE */
 #endif /* DEBUGGING */
 
 #define DEBUG_RExC_seen()                                                   \

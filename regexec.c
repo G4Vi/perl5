@@ -4297,6 +4297,7 @@ S_regtry(pTHX_ regmatch_info *reginfo, char **startposp)
 #define REPORT_CODE_OFF 29
 #define INDENT_CHARS(depth) ((int)(depth) % 20)
 #ifdef DEBUGGING
+#ifndef PERL_IN_XSUB_RE
 int
 Perl_re_exec_indentf(pTHX_ const char *fmt, U32 depth, ...)
 {
@@ -4310,6 +4311,7 @@ Perl_re_exec_indentf(pTHX_ const char *fmt, U32 depth, ...)
     va_end(ap);
     return result;
 }
+#endif /* PERL_IN_XSUB_RE */
 #endif /* DEBUGGING */
 
 /* grab a new slab and return the first slot in it */

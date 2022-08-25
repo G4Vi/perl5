@@ -40,6 +40,6 @@ ldflags="-static -nostdlib -nostdinc -fno-pie -no-pie -mno-red-zone -fno-omit-fr
 libs="$COSMO_REPO/o/$COSMO_MODE/cosmopolitan.a"
 requiredlibs="$COSMO_REPO/o/$COSMO_MODE/cosmopolitan.a"
 #static_ext='Errno/Runtime'
-noextensions='Fcntl IO POSIX Socket Time/HiRes re'
+noextensions='Fcntl IO POSIX Socket Time/HiRes'
 unset COSMO_REPO
 unset COSMO_MODE
