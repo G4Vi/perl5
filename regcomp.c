@@ -1297,6 +1297,7 @@ S_populate_invlist_from_bitmap(pTHX_ const U8 * bitmap, const Size_t bitmap_len,
 }
 
 #ifdef DEBUGGING
+#ifndef PERL_IN_XSUB_RE
 int
 Perl_re_printf(pTHX_ const char *fmt, ...)
 {
@@ -1323,6 +1324,7 @@ Perl_re_indentf(pTHX_ const char *fmt, U32 depth, ...)
     va_end(ap);
     return result;
 }
+#endif /* PERL_IN_XSUB_RE */
 #endif /* DEBUGGING */
 
 #define DEBUG_RExC_seen()                                                   \
