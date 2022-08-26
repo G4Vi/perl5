@@ -3148,8 +3148,8 @@ sigaction(sig, optaction, oldaction = 0)
 #ifdef SA_SIGINFO
                 if (act.sa_flags & SA_SIGINFO) {
                     /* 3-arg handler */
-                    act.sa_sigaction =
-			    safe ? PL_csighandler3p : PL_sighandler3p;
+                    act.sa_sigaction = (void(*)(int, struct siginfo *, struct ucontext *))
+			    (safe ? PL_csighandler3p : PL_sighandler3p);
                 }
                 else
 #endif
@@ -3219,7 +3219,7 @@ sigpending(sigset)
 #ifdef __amigaos4__
 	RETVAL = not_here("sigpending");
 #else
-	RETVAL = ix ? sigsuspend(sigset) : sigpending(sigset);
+	RETVAL = not_here("sigpending");
 #endif
     OUTPUT:
 	RETVAL
