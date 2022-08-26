@@ -406,13 +406,14 @@ EOC
 
 	print $c_fh "struct $struct_type $struct;\n";
 
+    my $structtypetype = $type ? 'static struct' : 'static const struct';
 	print $struct_fh <<"EOBOOT";
 
-    static const struct $struct_type $array_name\[] =
+    $structtypetype $struct_type $array_name\[] =
       {
 EOBOOT
 
-
+    my @valuestowrite;
 	foreach my $item (@{$found->{$type}}) {
             my ($name, $namelen, $value, $macro)
                  = $self->name_len_value_macro($item);
@@ -429,14 +430,36 @@ EOBOOT
 	    } else {
 		print $struct_fh $ifdef;
 	    }
-	    print $struct_fh "        { ", join (', ', "\"$name\"", $namelen,
-						 &$type_to_value($value)),
+		push @valuestowrite, &$type_to_value($value);
+	    print $struct_fh "        { ", join (', ', "\"$name\"", $namelen),
 						 " },\n",
 						 $self->macro_to_endif($macro);
 	}
 
     # Terminate the list with a NULL
 	print $struct_fh "        { NULL, 0", (", 0" x $number_of_args), " } };\n";
+
+	if($type) {
+		print $struct_fh "{\nunsigned i = 0;\n";
+		foreach my $item (@{$found->{$type}}) {
+            my ($name, $namelen, $value, $macro) = $self->name_len_value_macro($item);
+	        my $ifdef = $self->macro_to_ifdef($macro);
+	        if (!$ifdef && $item->{invert_macro}) {
+	        carp("Attempting to supply a default for '$name' which has no conditional macro");
+	        next;
+	        }
+	        if ($item->{invert_macro}) {
+	        print $struct_fh $self->macro_to_ifndef($macro);
+	        print $struct_fh
+	        "        /* This is the default value: */\n" if $type;
+	        } else {
+	        print $struct_fh $ifdef;
+	        }
+			print $struct_fh $array_name,"[i++].value = ". (shift @valuestowrite) . ";\n";
+			print $struct_fh $self->macro_to_endif($macro);
+	    }
+	    print $struct_fh "}\n";
+	}
 
 	print $xs_fh <<"EOBOOT" if $type;
 	const struct $struct_type *$iterator{$type} = $array_name;
