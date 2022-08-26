@@ -1,4 +1,4 @@
-package Errno::Runtime;
+package ErrnoRuntime;
 
 use 5.020002;
 use strict;
@@ -13,7 +13,7 @@ our @ISA = qw(Exporter);
 # names by default without a very good reason. Use EXPORT_OK instead.
 # Do not simply export all your public functions/methods/constants.
 
-# This allows declaration	use Errno::Runtime ':all';
+# This allows declaration	use ErrnoRuntime ':all';
 # If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
 # will save memory.
 our %EXPORT_TAGS = ( 'all' => [ qw(
@@ -27,7 +27,7 @@ our @EXPORT = qw(
 );
 
 require XSLoader;
-XSLoader::load('Errno::Runtime', $VERSION);
+XSLoader::load('ErrnoRuntime', $VERSION);
 
 # Preloaded methods go here.
 
@@ -41,12 +41,12 @@ __END__
 
 =head1 NAME
 
-Errno::Runtime - XS extension module for loading errno values at
+ErrnoRuntime - XS extension module for loading errno values at
 runtime
 
 =head1 SYNOPSIS
 
-    use Errno::Runtime;
+    use ErrnoRuntime;
 
 =head1 AUTHOR
 
@@ -56,7 +56,7 @@ Gavin Hayes, C<< <gahayes at cpan.org> >>
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc Errno::Runtime
+    perldoc ErrnoRuntime
 
 =head1 LICENSE AND COPYRIGHT
 
