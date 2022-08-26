@@ -5,8 +5,8 @@ use ExtUtils::MakeMaker;
 $^O eq 'cosmo' or die "OS unsupported";
 
 WriteMakefile(
-    VERSION_FROM => "lib/Errno/Runtime.pm",
-    NAME         => "Errno::Runtime",
+    VERSION_FROM => "lib/ErrnoRuntime.pm",
+    NAME         => "ErrnoRuntime",
     OBJECT       => '$(O_FILES)',
     ABSTRACT     => 'Load Errno constants at runtime',
     AUTHOR       => 'Gavin Hayes <gahayes@cpan.org>',

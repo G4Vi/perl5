@@ -37,7 +37,7 @@
 /Encode/
 /Env.pm
 /Errno.pm
-/Errno/
+/ErrnoRuntime.pm
 /Exporter.pm
 /Exporter/
 /ExtUtils/CBuilder.pm

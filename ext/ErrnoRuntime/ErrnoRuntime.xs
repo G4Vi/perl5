@@ -5,7 +5,7 @@
 #include <errno.h>
 #include "libc/fmt/magnumstrs.internal.h"
 
-MODULE = Errno::Runtime		PACKAGE = Errno::Runtime
+MODULE = ErrnoRuntime		PACKAGE = ErrnoRuntime
 
 IV
 strtoerrno(name)
