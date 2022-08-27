@@ -1165,7 +1165,7 @@ inet_ntop(af, ip_address_sv)
 	STRLEN addrlen;
 #ifdef AF_INET6
 	struct in6_addr addr;
-	char str[INET6_ADDRSTRLEN];
+	char str[65];
 #else
 	struct in_addr addr;
 	char str[INET_ADDRSTRLEN];
@@ -1177,20 +1177,19 @@ inet_ntop(af, ip_address_sv)
 
 	ip_address = SvPVbyte(ip_address_sv, addrlen);
 
-	switch(af) {
-	  case AF_INET:
-	    if(addrlen != 4)
+	if(af == AF_INET) {
+		if(addrlen != 4)
 		croak("Bad address length for Socket::inet_ntop on AF_INET;"
 		      " got %" UVuf ", should be 4", (UV)addrlen);
-	    break;
+	}
 #ifdef AF_INET6
-	  case AF_INET6:
-	    if(addrlen != 16)
+	else if(af == AF_INET6) {
+		if(addrlen != 16)
 		croak("Bad address length for Socket::inet_ntop on AF_INET6;"
 		      " got %" UVuf ", should be 16", (UV)addrlen);
-	    break;
+	}
 #endif
-	  default:
+	else {
 		croak("Bad address family for %s, got %d, should be"
 #ifdef AF_INET6
 		      " either AF_INET or AF_INET6",
@@ -1230,16 +1229,15 @@ inet_pton(af, host)
 	struct in_addr ip_address;
 #endif
 
-	switch(af) {
-	  case AF_INET:
-	    addrlen = 4;
-	    break;
+	if(af == AF_INET) {
+		addrlen = 4;
+	}
 #ifdef AF_INET6
-	  case AF_INET6:
-	    addrlen = 16;
-	    break;
+	else if(af == AF_INET6) {
+		addrlen = 16;
+	}
 #endif
-	  default:
+	else {
 		croak("Bad address family for %s, got %d, should be"
 #ifdef AF_INET6
 		      " either AF_INET or AF_INET6",
@@ -1248,6 +1246,7 @@ inet_pton(af, host)
 #endif
 		      "Socket::inet_pton", af);
 	}
+
 	ok = (*host != '\0') && inet_pton(af, host, &ip_address);
 
 	ST(0) = sv_newmortal();
