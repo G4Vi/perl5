@@ -2,19 +2,14 @@
 set -eux
 
 COSMO_REPO=$(realpath "../../cosmopolitan")
-PREFIX=$(realpath "../../blead-cosmo")
+PREFIX='/zip/usr/local'
 COSMO_MODE=${COSMO_MODE:=''};
 
 if [ ! -d $COSMO_REPO ]; then
     echo "<<<SUPERCONFIGURE>>> cosmo repo not found"
     exit 1
 fi
-
 echo "<<<SUPERCONFIGURE>>> cosmo repo at $COSMO_REPO, assuming other files exist as well"
-
-echo "<<<SUPERCONFIGURE>>> making prefix dirs"
-mkdir -p "$PREFIX"
-mkdir -p "$PREFIX/bin"
 
 echo "<<<SUPERCONFIGURE>>> Building cosmo, COSMO_MODE=$COSMO_MODE"
 make -C $COSMO_REPO -j4 MODE="$COSMO_MODE" o/$COSMO_MODE/cosmopolitan.a

@@ -4,7 +4,6 @@
 
 test -d "$COSMO_REPO" || exit 1;
 
-userelocatableinc='define'
 usedl='undef'
 usenm='false'
 so='none'

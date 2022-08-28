@@ -9,17 +9,18 @@ perlcosmo - Build-once run-anywhere Perl using the cosmopolitan libc
 =head1 DESCRIPTION
 
 This file contains instructions how to build Perl with the cosmopolitan
-libc and lists known problems.
+libc, build Actually Portable Perl - a single perl binary with
+libraries bundled inside of it that can run anywhere, and lists known
+problems.
 
-=head1 BUILD AND INSTALL
+=head1 BUILD
 
 Download the cosmopolitan libc:
   cd .. && git clone https://github.com/jart/cosmopolitan
 
 Modify cosmopolitan/libc/integral/c.inc ; comment out
-#pragma GCC diagnostic error "-Wuninitialized",
-#pragma GCC diagnostic error "-Wmaybe-uninitialized",
-and #pragma GCC diagnostic error "-Wredundant-decls"
+#pragma GCC diagnostic error "-Wuninitialized" and
+#pragma GCC diagnostic error "-Wmaybe-uninitialized"
 
 Run superConfigure
   cd perl5/cosmo
@@ -29,14 +30,19 @@ Enter cosmo when prompted for hints. Then let it run with defaults.
   cosmo<ENTER>
   &-d<ENTER>
 
-Finally make
+Make
   make
+
+Build Actually Portable Perl
+  cd cosmo
+  ./buildAPPerl.sh
+If all goes well you should now have o/perl.com , a single perl binary
+with libraries bundled inside of it that can run anywhere.
 
 =head1 KNOWN PROBLEMS
 
-cosmo perl is a work in progress, make minitest passes now, but
-several static extensions fail to build. Only works with self-modifying
-ape loader.
+cosmo perl is a work in progress, many major issues are present.
+Only works with the self-modifying ape loader.
 
 =back
 
@@ -44,4 +50,4 @@ ape loader.
 
 The port in-progress is being done by Gavin Hayes <gahayes@cpan.org>
 
-Last update: 2022-08-19
+Last update: 2022-08-28
