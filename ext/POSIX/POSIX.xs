@@ -3212,7 +3212,7 @@ sigpending(sigset)
 #ifdef __amigaos4__
 	RETVAL = not_here("sigpending");
 #else
-	RETVAL = not_here("sigpending");
+	RETVAL = ix ? sigsuspend(sigset) : sigpending(sigset);
 #endif
     OUTPUT:
 	RETVAL

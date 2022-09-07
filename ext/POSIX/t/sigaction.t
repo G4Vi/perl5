@@ -51,7 +51,7 @@ ok($oldaction->{MASK}->ismember(SIGUSR1), "SIGUSR1 ismember MASK");
 
 SKIP: {
     skip("sigaction() thinks different in $^O", 1)
-	if $^O eq 'linux' || $^O eq 'unicos';
+	if $^O eq 'linux' || $^O eq 'unicos' || $^O eq 'cosmo';
     is($oldaction->{FLAGS}, 0);
 }
 

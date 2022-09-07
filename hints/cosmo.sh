@@ -31,6 +31,7 @@ uidtype='int'
 socksizetype='socklen_t'
 d_getgrps='undef'
 d_procselfexe='undef'
+d_getlogin='undef'
 locincpth=''
 usrinc="$COSMO_REPO/libc/isystem"
 cc="$COSMO_REPO/o/third_party/gcc/bin/x86_64-linux-musl-gcc"
