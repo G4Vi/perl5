@@ -1,9 +1,20 @@
-#! /bin/sh 
+#! /bin/sh
+#
+# cosmo/superConfigure - Ease configuring perl with the cosmopolitan
+# libc for producing Actually Portable Perl.
+#
+# Run this from the root of perl repo, see README.cosmo. This script
+# assumes the cosmopolitan repo is at the same level as the perl5 repo;
+# set COSMO_REPO to override that path. i.e
+# COSMO_REPO="/path/to/cosmopolitan" cosmo/superConfigure
+# Arguments passed to this script will be directly passed on to
+# Configure and should override the ones' provided here if needed.
+
 set -eux
 
-COSMO_REPO=$(realpath "../../cosmopolitan")
-PREFIX='/zip/usr/local'
+COSMO_REPO=$(realpath ${COSMO_REPO:="../cosmopolitan"});
 COSMO_MODE=${COSMO_MODE:=''};
+PREFIX='/zip/usr/local'
 
 if [ ! -d $COSMO_REPO ]; then
     echo "<<<SUPERCONFIGURE>>> cosmo repo not found"
@@ -14,21 +25,19 @@ echo "<<<SUPERCONFIGURE>>> cosmo repo at $COSMO_REPO, assuming other files exist
 echo "<<<SUPERCONFIGURE>>> Building cosmo, COSMO_MODE=$COSMO_MODE"
 make -C $COSMO_REPO -j4 MODE="$COSMO_MODE" o/$COSMO_MODE/cosmopolitan.a
 make -C $COSMO_REPO -j4 MODE="$COSMO_MODE" o/$COSMO_MODE/libc/crt/crt.o
-make -C $COSMO_REPO -j4 MODE="$COSMO_MODE" o/$COSMO_MODE/ape/ape.lds
+make -C $COSMO_REPO -j4 MODE="$COSMO_MODE" o/$COSMO_MODE/ape/public/ape.lds
 make -C $COSMO_REPO -j4 MODE="$COSMO_MODE" o/$COSMO_MODE/ape/ape.o
 make -C $COSMO_REPO -j4 MODE="$COSMO_MODE" o/$COSMO_MODE/ape/ape-no-modify-self.o
 make -C $COSMO_REPO -j4 MODE="$COSMO_MODE" o/cosmopolitan.h
 
-cd ../
-
 echo "<<<SUPERCONFIGURE>>> Running Configure"
 
-COSMO_MODE="$COSMO_MODE" COSMO_REPO="$COSMO_REPO" sh Configure -e \
+COSMO_MODE="$COSMO_MODE" COSMO_REPO="$COSMO_REPO" sh Configure \
     -Dprefix="$PREFIX" \
     -Dusedevel \
     -Doptimize="-Os" \
     -Dmyhostname="cosmo" \
     -Dmydomain="invalid" \
     -Dcf_by="cosmo" \
-    -DDEBUGGING
-
+    -DDEBUGGING \
+    "$@"
