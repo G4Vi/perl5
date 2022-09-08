@@ -18,17 +18,12 @@ problems.
 Download the cosmopolitan libc:
   cd .. && git clone https://github.com/jart/cosmopolitan
 
-Modify cosmopolitan/libc/integral/c.inc ; comment out
-#pragma GCC diagnostic error "-Wuninitialized" and
-#pragma GCC diagnostic error "-Wmaybe-uninitialized"
-
 Run superConfigure
   cd perl5/cosmo
   sh superConfigure
 
-Enter cosmo when prompted for hints. Then let it run with defaults.
-  cosmo<ENTER>
-  &-d<ENTER>
+Verify [cosmo] is detected for hints. Then let it run with defaults.
+  &-d<ENTER><ENTER>
 
 Make
   make
