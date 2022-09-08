@@ -1,28 +1,49 @@
 #!/bin/sh
-# Builds Actually Portable Perl from a cosmopolitan build of perl, see ../README.cosmo
+#
+# cosmo/buildAPPerl.sh - Builds Actually Portable Perl from a
+# cosmopolitan build of perl
+#
+# Run this from the root of the perl repo, see README.cosmo
+
 set -eux
 
+# check environment
+COSMO_PLATFORM_DIR=$(realpath ./cosmo)
+if [ ! -d "$COSMO_PLATFORM_DIR" ]; then
+    echo "<<<buildAPPerl>>> cosmo platform dir not found"
+    exit 1
+fi
+#   perl.com should exist after make
+#   (THIS MUST BE UNRUN AS IT CURRENTLY IS SELF MODIFYING)
+PERL_APE=$(realpath ./perl.com)
+if [ ! -f "$PERL_APE" ]; then
+    echo "<<<buildAPPerl>>> perl ape not found"
+    exit 1
+fi
+
 # setup output directories
-OUTPUTDIR="./o"
+OUTPUTDIR="$COSMO_PLATFORM_DIR/o"
 if [ -d "$OUTPUTDIR" ]; then
     rm -rf "$OUTPUTDIR"
 fi
 mkdir -p "$OUTPUTDIR"
-OUTPUTDIR=$(realpath "$OUTPUTDIR")
 TEMPDIR="$OUTPUTDIR/tmp"
 mkdir -p "$TEMPDIR"
 
-# copy in perl.com (THIS MUST BE UNRUN AS IT CURRENTLY IS SELF MODIFYING)
-PERL_APE=$(realpath ../perl.com)
-APPNAME=$(basename "$PERL_APE")
-APPPATH="$TEMPDIR/$APPNAME"
-cp "$PERL_APE" "$APPPATH"
-
 # build the folder structure
-make -C ../ "DESTDIR=$TEMPDIR" install
+make "DESTDIR=$TEMPDIR" install
 
 # remove not actually portable perl
 rm $TEMPDIR/zip/usr/local/bin/perl5*
+
+# copy in perl.com
+# (THIS MUST BE UNRUN AS IT CURRENTLY IS SELF MODIFYING)
+APPNAME=$(basename "$PERL_APE")
+APPPATH="$TEMPDIR/$APPNAME"
+cp "$PERL_APE" "$APPPATH"
+APPNAME=$(basename "$PERL_APE")
+APPPATH="$TEMPDIR/$APPNAME"
+cp "$PERL_APE" "$APPPATH"
 
 # finally add the files to zip
 THIS_DIR=$(realpath .)

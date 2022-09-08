@@ -15,23 +15,19 @@ problems.
 
 =head1 BUILD
 
-Download the cosmopolitan libc:
-  cd .. && git clone https://github.com/jart/cosmopolitan
+Download the cosmopolitan libc to same directory the perl repo is in:
+  git clone https://github.com/jart/cosmopolitan ../cosmopolitan
 
-Run superConfigure
-  cd perl5/cosmo
-  sh superConfigure
-
-Verify [cosmo] is detected for hints. Then let it run with defaults.
-  &-d<ENTER><ENTER>
+Run cosmo's superConfigure, just like you would run Configure
+  cosmo/superConfigure -de
 
 Make
   make
 
 Build Actually Portable Perl
-  cd cosmo
-  ./buildAPPerl.sh
-If all goes well you should now have o/perl.com , a single perl binary
+  cosmo/buildAPPerl.sh
+
+If all goes well you should now have cosmo/o/perl.com , a single perl binary
 with libraries bundled inside of it that can run anywhere.
 
 =head1 KNOWN PROBLEMS
@@ -45,4 +41,4 @@ Only works with the self-modifying ape loader.
 
 The port in-progress is being done by Gavin Hayes <gahayes@cpan.org>
 
-Last update: 2022-08-28
+Last update: 2022-09-08
