@@ -2744,7 +2744,7 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 EOM
-    if $cc -o try $ccflags $ldflags try.c $requiredlibs; then
+    if $cc -o try $ccflags $ldflags try.c $libs; then
        :
     else
         echo "Uh-oh, the C compiler '$cc' doesn't seem to be working." >&4
@@ -2816,7 +2816,7 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 EOM
-    if $cc -o try $ccflags $ldflags try.c $requiredlibs; then
+    if $cc -o try $ccflags $ldflags try.c $libs; then
        :
     else
         if $test X"$despair" = Xyes; then
@@ -3663,6 +3663,11 @@ EOM
 			osname=os2
 			osvers="$5"
 		fi
+	fi
+
+	if [ $COSMO_REPO ]; then
+		osname='cosmo'
+		osvers=''
 	fi
 
         case "$targetarch" in
@@ -4576,7 +4581,7 @@ int main() {
 	return(0);
 }
 EOM
-if $cc -o try $ccflags $ldflags try.c $requiredlibs; then
+if $cc -o try $ccflags $ldflags try.c $libs; then
 	gccversion=`$run ./try`
 	case "$gccversion" in
 	'') echo "You are not using GNU cc." ;;
@@ -4697,7 +4702,7 @@ int main(int argc, char **argv) {
 EOCP
 c99_for=no
 for flag in '' '-std=gnu99' '-std=c99'; do
-    if $cc -o try $flag $ccflags $ldflags try.c $requiredlibs 2>/dev/null && ./try; then
+    if $cc -o try $flag $ccflags $ldflags try.c $libs 2>/dev/null && ./try; then
         c99_for="$flag"
         break;
     fi
@@ -5401,9 +5406,8 @@ echo " ";
 echo "Checking if your compiler accepts $flag" >&4;
 [ "X$sysroot" != "X" ] && echo "For sysroot = $sysroot";
 echo "int main(void) { return 0; }" > gcctest.c;
-if $cc $_sysroot -O2 $flag -o gcctest $ccflags $ldflags gcctest.c $requiredlibs 2>gcctest.out && $run ./gcctest; then
+if $cc $_sysroot -O2 $flag -o gcctest $ccflags $ldflags gcctest.c $libs 2>gcctest.out && $run ./gcctest; then
     echo "Yes, it does." >&4;
-	truncate -s0 gcctest.out;
     if $test -s gcctest.out ; then
         echo "But your platform does not like it:";
         cat gcctest.out;
