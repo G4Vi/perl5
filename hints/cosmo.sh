@@ -15,7 +15,6 @@ libpth='none'
 #incpth=
 #incpath=
 #usrinc=
-socksizetype='socklen_t'
 d_procselfexe='undef'
 locincpth=''
 usrinc="$COSMO_REPO/libc/isystem"
