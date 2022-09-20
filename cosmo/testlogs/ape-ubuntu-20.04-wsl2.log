@@ -1,5 +1,5 @@
 ape.o Ubuntu 20.04 WSL2
-Failed 84 tests out of 2303, 96.35% okay.
+Failed 83 tests out of 2305, 96.40% okay.
         ../cpan/Archive-Tar/t/09_roundtrip.t
         ../cpan/CPAN/t/01loadme.t
         ../cpan/CPAN/t/02nox.t
@@ -71,16 +71,15 @@ Failed 84 tests out of 2303, 96.35% okay.
         ../cpan/Perl-OSType/t/OSType.t
         ../dist/ExtUtils-CBuilder/t/02-link.t
         ../ext/DynaLoader/t/DynaLoader.t
-        ../ext/POSIX/t/wrappers.t
         ../ext/PerlIO-encoding/t/nolooping.t
         ../lib/ExtUtils/t/Embed.t
         ../lib/open.t
         op/goto.t
-        op/groups.t
         porting/authors.t
         porting/checkcase.t
         porting/cmp_version.t
         porting/manifest.t
+        porting/pending-author.t
         porting/pod_rules.t
         porting/podcheck.t
         porting/utils.t
@@ -90,6 +89,6 @@ Failed 84 tests out of 2303, 96.35% okay.
 ### You have a good chance to get more information by running
 ###   ./perl harness
 ### in the 't' directory since most (>=80%) of the tests succeeded.
-Elapsed: 863 sec
-u=24.09  s=8.98  cu=578.10  cs=42.37  scripts=2303  tests=867025
+Elapsed: 887 sec
+u=23.09  s=10.26  cu=582.88  cs=43.27  scripts=2305  tests=866971
 make: *** [makefile:816: test] Error 1
