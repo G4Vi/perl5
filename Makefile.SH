@@ -1009,6 +1009,7 @@ lib/buildcustomize.pl: $& $(miniperl_dep) write_buildcustomize.pl
 	    $(miniperl_objs) $(libs)
 	$(realpath $(dir $(CC)))/x86_64-linux-musl-objcopy -S -O binary miniperl.elf miniperl.com
 	cp miniperl.com $(MINIPERL_EXE)
+	./miniperl --assimilate || true
 	$(LDLIBPTH) ./miniperl$(HOST_EXE_EXT) -w -Ilib -Idist/Exporter/lib -MExporter -e '<?>' || sh -c 'echo >&2 Failed to build miniperl.  Please run make minitest; exit 1'
 	$(MINIPERL) -f write_buildcustomize.pl
 !NO!SUBS!
@@ -1070,6 +1071,7 @@ $(PERL_EXE): $& $(perlmain_dep) $(LIBPERL) $(static_ext) ext.libs $(PERLEXPORT) 
 	$(SHRPENV) $(CC) -o perl.elf $(CLDFLAGS) $(CCDLFLAGS) $(perlmain_objs) $(static_ext) $(LLIBPERL) `cat ext.libs` $(libs)
 	$(realpath $(dir $(CC)))/x86_64-linux-musl-objcopy -S -O binary perl.elf perl.com
 	cp perl.com $(PERL_EXE)
+	./perl --assimilate || true
 !NO!SUBS!
         ;;
         *) $spitshell >>$Makefile <<'!NO!SUBS!'

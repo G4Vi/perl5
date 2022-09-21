@@ -14,6 +14,7 @@ set -eux
 
 COSMO_REPO=$(realpath ${COSMO_REPO:="../cosmopolitan"});
 COSMO_MODE=${COSMO_MODE:=''};
+COSMO_APE_LOADER=${COSMO_APE_LOADER:='ape-no-modify-self.o'};
 PREFIX='/zip/usr/local'
 
 if [ ! -d $COSMO_REPO ]; then
@@ -22,16 +23,18 @@ if [ ! -d $COSMO_REPO ]; then
 fi
 echo "<<<SUPERCONFIGURE>>> cosmo repo at $COSMO_REPO, assuming other files exist as well"
 
-echo "<<<SUPERCONFIGURE>>> Building cosmo, COSMO_MODE=$COSMO_MODE"
-make -C $COSMO_REPO -j4 MODE="$COSMO_MODE" o/$COSMO_MODE/cosmopolitan.a
-make -C $COSMO_REPO -j4 MODE="$COSMO_MODE" o/$COSMO_MODE/libc/crt/crt.o
-make -C $COSMO_REPO -j4 MODE="$COSMO_MODE" o/$COSMO_MODE/ape/public/ape.lds
-make -C $COSMO_REPO -j4 MODE="$COSMO_MODE" o/$COSMO_MODE/ape/ape.o
-make -C $COSMO_REPO -j4 MODE="$COSMO_MODE" o/$COSMO_MODE/ape/ape-no-modify-self.o
-make -C $COSMO_REPO -j4 MODE="$COSMO_MODE" o/cosmopolitan.h
+if [ "$COSMO_APE_LOADER" != 'ape-no-modify-self.o' -a "$COSMO_APE_LOADER" != 'ape.o' ]; then
+    echo "<<<SUPERCONFIGURE>>> unknown ape loader $COSMO_APE_LOADER"
+    exit 1
+fi
+
+echo "<<<SUPERCONFIGURE>>> Building cosmo, COSMO_MODE=$COSMO_MODE COSMO_APE_LOADER=$COSMO_APE_LOADER"
+make -C "$COSMO_REPO" -j4 "MODE=$COSMO_MODE" "o/$COSMO_MODE/cosmopolitan.a"
+make -C "$COSMO_REPO" -j4 "MODE=$COSMO_MODE" "o/$COSMO_MODE/libc/crt/crt.o"
+make -C "$COSMO_REPO" -j4 "MODE=$COSMO_MODE" "o/$COSMO_MODE/ape/public/ape.lds"
+make -C "$COSMO_REPO" -j4 "MODE=$COSMO_MODE" "o/$COSMO_MODE/ape/$COSMO_APE_LOADER"
 
 echo "<<<SUPERCONFIGURE>>> Running Configure"
-
 COSMO_MODE="$COSMO_MODE" COSMO_REPO="$COSMO_REPO" sh Configure \
     -Dprefix="$PREFIX" \
     -Dusedevel \
