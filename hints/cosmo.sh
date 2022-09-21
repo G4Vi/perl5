@@ -25,3 +25,20 @@ libs="$COSMO_REPO/o/$COSMO_MODE/cosmopolitan.a"
 #noextensions=''
 unset COSMO_REPO
 unset COSMO_MODE
+
+# uncomment as needed for older cosmopolitan
+#d_msgctl='undef'
+#d_msgget='undef'
+#d_msgrcv='undef'
+#d_msgsnd='undef'
+#gidformat='"d"'
+#gidsign='-1'
+#gidsize='4'
+#gidtype='int'
+#uidformat='"d"'
+#uidsign='-1'
+#uidsize='4'
+#uidtype='int'
+#socksizetype='socklen_t'
+#d_getgrps='undef'
+#d_getlogin='undef'
