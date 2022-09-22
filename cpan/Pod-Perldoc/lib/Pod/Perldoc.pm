@@ -1929,7 +1929,7 @@ sub page {  # apply a pager to the output file
             $self->aside("About to try calling $pager $output\n");
             if ($self->is_vms) {
                 last if system("$pager $output") == 0;
-	    } elsif($self->is_amigaos) { 
+	    } elsif($self->is_amigaos || ($^O eq 'cosmo')) {
                 last if system($pager, $output) == 0;
             } else {
                 last if system("$pager \"$output\"") == 0;
