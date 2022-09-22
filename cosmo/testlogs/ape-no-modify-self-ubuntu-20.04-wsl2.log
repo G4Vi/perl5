@@ -1,5 +1,5 @@
-ape-no-modify-self.o Ubuntu 20.04 WSL2
-Failed 83 tests out of 2305, 96.40% okay.
+ape-no-modify-self.o Ubuntu 20.04 WSL2 perl v5.36.0
+Failed 83 tests out of 2352, 96.47% okay.
         ../cpan/Archive-Tar/t/09_roundtrip.t
         ../cpan/CPAN/t/01loadme.t
         ../cpan/CPAN/t/02nox.t
@@ -74,12 +74,12 @@ Failed 83 tests out of 2305, 96.40% okay.
         ../ext/PerlIO-encoding/t/nolooping.t
         ../lib/ExtUtils/t/Embed.t
         ../lib/open.t
-        op/goto.t
         porting/authors.t
         porting/checkcase.t
         porting/cmp_version.t
+        porting/customized.t
+        porting/globvar.t
         porting/manifest.t
-        porting/pending-author.t
         porting/pod_rules.t
         porting/podcheck.t
         porting/utils.t
@@ -89,6 +89,6 @@ Failed 83 tests out of 2305, 96.40% okay.
 ### You have a good chance to get more information by running
 ###   ./perl harness
 ### in the 't' directory since most (>=80%) of the tests succeeded.
-Elapsed: 887 sec
-u=24.89  s=9.86  cu=601.46  cs=43.24  scripts=2305  tests=866890
+Elapsed: 894 sec
+u=31.56  s=12.23  cu=615.95  cs=44.90  scripts=2352  tests=900027
 make: *** [makefile:818: test] Error 1

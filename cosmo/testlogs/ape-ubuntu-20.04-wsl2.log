@@ -1,4 +1,4 @@
-ape.o Ubuntu 20.04 WSL2
+ape.o Ubuntu 20.04 WSL2 perl v5.37-plus-dont-use
 Failed 83 tests out of 2305, 96.40% okay.
         ../cpan/Archive-Tar/t/09_roundtrip.t
         ../cpan/CPAN/t/01loadme.t

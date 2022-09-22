@@ -1,4 +1,4 @@
-ape.o Debian 9.5 WSL2
+ape.o Debian 9.5 WSL2 perl v5.37-plus-dont-use
 Failed 83 tests out of 2300, 96.39% okay.
         ../cpan/Archive-Tar/t/09_roundtrip.t
         ../cpan/CPAN/t/01loadme.t
