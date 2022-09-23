@@ -15,7 +15,7 @@ set -eux
 COSMO_REPO=$(realpath ${COSMO_REPO:="../cosmopolitan"});
 COSMO_MODE=${COSMO_MODE:=''};
 COSMO_APE_LOADER=${COSMO_APE_LOADER:='ape-no-modify-self.o'};
-PREFIX='/zip/usr/local'
+PREFIX='/zip'
 
 if [ ! -d $COSMO_REPO ]; then
     echo "<<<SUPERCONFIGURE>>> cosmo repo not found"

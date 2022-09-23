@@ -1932,31 +1932,18 @@ sub page {  # apply a pager to the output file
 	    } elsif($self->is_amigaos) {
                 last if system($pager, $output) == 0;
             } elsif(($^O eq 'cosmo') && (-f '/C/Windows/System32/cmd.exe')) {
-                my $tempout = $output;
-                $tempout =~ s/^\/([A-Z])\//$1:\\/;
-                $tempout =~ s/\//\\/g;
-                my @pagercommand = split(' ', $pager);
-                my @cmd = ('/C/Windows/System32/cmd.exe', '/c', @pagercommand, $tempout);
-                print "trying pager: ";
-                print "$_ " foreach @cmd;
-                print "\n";
-                exec(@cmd);
-                exit 1;
-                #my $pid = fork();
-                #defined($pid) or die;
-                #if($pid == 0) {
-                #  open(my $cfh, '<', $output) or die;
-                #  local *STDIN = $cfh;
-                #  my @pagercommand = split(' ', $pager);
-                #  my @cmd = ('cmd', '/c', @pagercommand);
-                #  exec(@cmd);
-                #  die;
-                #}
-                #else {
-                #  waitpid($pid, 0);
-                #  my $code = $? >> 8;
-                #  last if($code == 0);
-                #}
+                my $pid = fork();
+                defined($pid) or exit 1;
+                if($pid == 0) {
+                  $output =~ s/^\/([A-Z])\//$1:\\/;
+                  $output =~ s/\//\\/g;
+                  my @pagercommand = split(' ', $pager);
+                  my @cmd = ('/C/Windows/System32/cmd.exe', '/c', @pagercommand, $output);
+                  exec(@cmd);
+                  exit 1;
+                }
+                waitpid($pid, 0) != -1 or exit 1;
+                last if(($? >> 8) == 0);
             } else {
                 last if system("$pager \"$output\"") == 0;
             }

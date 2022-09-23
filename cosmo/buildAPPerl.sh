@@ -30,11 +30,17 @@ mkdir -p "$OUTPUTDIR"
 TEMPDIR="$OUTPUTDIR/tmp"
 mkdir -p "$TEMPDIR"
 
+# get the prefix
+PERL_PREFIX=$(./perl -Ilib -e 'use Config; print $Config{prefix}')
+PREFIX_NOZIP=$(echo -n "$PERL_PREFIX" | sed 's&^/zip/*&&')
+[ "$PREFIX_NOZIP" = '' ] || PREFIX_NOZIP="$PREFIX_NOZIP/"
+echo "<<<buildAPPerl>>> prefix: $PERL_PREFIX nozip: $PREFIX_NOZIP"
+
 # build the folder structure
 make "DESTDIR=$TEMPDIR" install
 
 # remove not actually portable perl
-rm $TEMPDIR/zip/usr/local/bin/perl5*
+rm "$TEMPDIR$PERL_PREFIX/bin/perl5"*
 
 # copy in perl.com
 # (THIS MUST BE UNRUN AS IT CURRENTLY IS SELF MODIFYING)
@@ -49,7 +55,7 @@ cp "$PERL_APE" "$APPPATH"
 THIS_DIR=$(realpath .)
 ZIP_ROOT="$TEMPDIR/zip"
 cd "$ZIP_ROOT"
-zip -r "$APPPATH" usr/local/lib usr/local/bin
+zip -r "$APPPATH" "$PREFIX_NOZIP"lib "$PREFIX_NOZIP"bin
 cd "$THIS_DIR"
 
 # success, move perl.com out of temp
