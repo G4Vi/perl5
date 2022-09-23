@@ -9,36 +9,61 @@ perlcosmo - Build-once run-anywhere Perl using the cosmopolitan libc
 =head1 DESCRIPTION
 
 This file contains instructions how to build Perl with the cosmopolitan
-libc, build Actually Portable Perl - a single perl binary with
-libraries bundled inside of it that can run anywhere, and lists known
-problems.
+libc, build Actually Portable Perl (APPerl) - a single perl binary with
+libraries bundled inside of it that can run anywhere, lists known
+problems, and gives a brief explanation how it works.
 
 =head1 BUILD
 
 Download the cosmopolitan libc to same directory the perl repo is in:
+
   git clone https://github.com/jart/cosmopolitan ../cosmopolitan
 
 Run cosmo's superConfigure, just like you would run Configure
+
   cosmo/superConfigure -de
 
 Make
+
   make
 
 Build Actually Portable Perl
+
   cosmo/buildAPPerl.sh
 
-If all goes well you should now have cosmo/o/perl.com , a single perl binary
-with libraries bundled inside of it that can run anywhere.
+If all goes well you should now have cosmo/o/perl.com , a single perl
+binary with libraries bundled inside of it that can run anywhere.
 
 =head1 KNOWN PROBLEMS
 
 cosmo perl is a work in progress, many major issues are present.
-Only works with the self-modifying ape loader.
+
+=over 4
+
+=item *
+
+C<system> does not work when running on non-Unix.
+
+=item *
+
+Some magic only works when the binary is assimilated. For example,
+modifying C<$0>. Running with C<--assimilate> will bind the binary to
+the current operating system.
 
 =back
+
+=head1 HOW
+
+By building a statically linked binary launched via a polygot binary
+format with support for various SysV interfaces and WinAPI. The polygot
+includes ZIP, allowing for files to easily be packed inside it. APPerl
+takes advantage of the ZIP to store perl modules and scripts. For
+example, perldoc can be launched via
+
+  ./perl.com /zip/bin/perldoc
 
 =head1 CONTACT
 
 The port in-progress is being done by Gavin Hayes <gahayes@cpan.org>
 
-Last update: 2022-09-08
+Last update: 2022-09-23

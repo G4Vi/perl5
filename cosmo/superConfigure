@@ -38,6 +38,7 @@ echo "<<<SUPERCONFIGURE>>> Running Configure"
 COSMO_MODE="$COSMO_MODE" COSMO_REPO="$COSMO_REPO" sh Configure \
     -Dprefix="$PREFIX" \
     -Dusedevel \
+    -Uversiononly \
     -Doptimize="-Os" \
     -Dmyhostname="cosmo" \
     -Dmydomain="invalid" \

@@ -36,20 +36,20 @@ PREFIX_NOZIP=$(echo -n "$PERL_PREFIX" | sed 's&^/zip/*&&')
 [ "$PREFIX_NOZIP" = '' ] || PREFIX_NOZIP="$PREFIX_NOZIP/"
 echo "<<<buildAPPerl>>> prefix: $PERL_PREFIX nozip: $PREFIX_NOZIP"
 
+# get the version
+PERL_VERSION=$(./perl -Ilib -e 'use Config; print $Config{version}')
+
 # build the folder structure
 make "DESTDIR=$TEMPDIR" install
 
 # remove not actually portable perl
-rm "$TEMPDIR$PERL_PREFIX/bin/perl5"*
+rm "$TEMPDIR$PERL_PREFIX/bin/perl" "$TEMPDIR$PERL_PREFIX/bin/perl$PERL_VERSION"
 
 # copy in perl.com
-# (THIS MUST BE UNRUN AS IT CURRENTLY IS SELF MODIFYING)
 APPNAME=$(basename "$PERL_APE")
 APPPATH="$TEMPDIR/$APPNAME"
 cp "$PERL_APE" "$APPPATH"
-APPNAME=$(basename "$PERL_APE")
-APPPATH="$TEMPDIR/$APPNAME"
-cp "$PERL_APE" "$APPPATH"
+chmod u+w "$APPPATH"
 
 # finally add the files to zip
 THIS_DIR=$(realpath .)
