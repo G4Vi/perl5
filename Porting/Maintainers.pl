@@ -1385,6 +1385,7 @@ use File::Glob qw(:case);
                 ext/Devel-Peek/
                 ext/DynaLoader/
                 ext/Errno/
+                ext/ErrnoRuntime/
                 ext/ExtUtils-Miniperl/
                 ext/Fcntl/
                 ext/File-DosGlob/

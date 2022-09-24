@@ -46,6 +46,14 @@ C<system> does not work when running on non-Unix.
 
 =item *
 
+No easy way to install perl modules after building APPerl. Using ZIP,
+Pure Perl modules could be manually added to the
+C<lib/perl5/site_perl/5.36.0> directory inside of perl.com . XS modules
+cannot be added after building perl.com as only static linking is
+suppported by the cosmopolitan libc at this time.
+
+=item *
+
 Some magic only works when the binary is assimilated. For example,
 modifying C<$0>. Running with C<--assimilate> will bind the binary to
 the current operating system.
@@ -54,13 +62,16 @@ the current operating system.
 
 =head1 HOW
 
-By building a statically linked binary launched via a polygot binary
-format with support for various SysV interfaces and WinAPI. The polygot
-includes ZIP, allowing for files to easily be packed inside it. APPerl
-takes advantage of the ZIP to store perl modules and scripts. For
-example, perldoc can be launched via
+The cosmopolitan libc enables building support for multiple x86_64
+platforms at the same time into a single binary that is also a ZIP
+file. Some modifications were made to Perl in order to enable building
+with the cosmopolitan libc; for example, the value of errno constants
+cannot be hardcoded into the binary as their values are dependant on
+what the current operating system is. Perl modules and scripts are
+packed inside of the APPerl binary using ZIP. For example, this POD
+document can be read via embedded perldoc:
 
-  ./perl.com /zip/bin/perldoc
+  ./perl.com /zip/bin/perldoc perlcosmo
 
 =head1 CONTACT
 

@@ -10,6 +10,8 @@ cflags.SH
 configpm
 configure.gnu
 config_h.SH
+cosmo/buildAPPerl.sh
+cosmo/superConfigure
 cpan/autodie/t/chmod.t
 cpan/CPAN-Meta-YAML/t/tml
 cpan/Test-Harness/t/source_tests/source.sh

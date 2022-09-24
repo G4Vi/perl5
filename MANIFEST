@@ -27,6 +27,12 @@ configure.com		Configure-equivalent for VMS
 configure.gnu		Crude emulation of GNU configure
 cop.h			Control operator header
 Copying			The GNU General Public License
+cosmo/buildAPPerl.sh			Build Actually Portable Perl
+cosmo/superConfigure			Configure for building Actually Portable Perl
+cosmo/testlogs/ape-debian-9.5-vmware.log				results of make test
+cosmo/testlogs/ape-no-modify-self-debian-9.5-vmware.log	results of make test
+cosmo/testlogs/ape-no-modify-self-ubuntu-20.04-wsl2.log	results of make test
+cosmo/testlogs/ape-ubuntu-20.04-wsl2.log				results of make test
 cpan/.dir-locals.el			Emacs control file
 cpan/Archive-Tar/bin/ptar				the ptar utility
 cpan/Archive-Tar/bin/ptardiff				the ptardiff utility
@@ -4303,6 +4309,9 @@ ext/Errno/ChangeLog	Errno changes
 ext/Errno/Errno_pm.PL	Errno perl module create script
 ext/Errno/Makefile.PL	Errno extension makefile writer
 ext/Errno/t/Errno.t	See if Errno works
+ext/ErrnoRuntime/ErrnoRuntime.xs		ErrnoRuntime extension implementation
+ext/ErrnoRuntime/lib/ErrnoRuntime.pm	ErrnoRuntime extension Perl module
+ext/ErrnoRuntime/Makefile.PL	ErrnoRuntime extension makefile writer
 ext/ExtUtils-Miniperl/lib/ExtUtils/Miniperl.pm	Writes {mini,}perlmain.c
 ext/Fcntl/Fcntl.pm	Fcntl extension Perl module
 ext/Fcntl/Fcntl.xs	Fcntl extension external subroutines
@@ -4765,6 +4774,7 @@ hints/broken-db.msg		Warning message for systems with broken DB library
 hints/bsdos.sh			Hints for named architecture
 hints/catamount.sh		Hints for named architecture
 hints/convexos.sh		Hints for named architecture
+hints/cosmo.sh			Hints for named architecture
 hints/cxux.sh			Hints for named architecture
 hints/cygwin.sh			Hints for named architecture
 hints/darwin.sh			Hints for named architecture
@@ -5512,6 +5522,7 @@ README.amiga			Perl notes for AmigaOS
 README.android			Perl notes for Android
 README.bs2000			Perl notes for POSIX-BC BS2000
 README.cn			Perl for Simplified Chinese (in UTF-8)
+README.cosmo			Perl notes for the Cosmopolitan Libc
 README.cygwin			Perl notes for Cygwin
 README.freebsd			Perl notes for FreeBSD
 README.haiku			Perl notes for Haiku
