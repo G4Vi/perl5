@@ -157,11 +157,11 @@ hunk.
 #  endif
 static const char * const local_patches[] = {
         NULL
+        ,"G4Vi:cosmo - https://github.com/G4Vi/perl5/tree/cosmo Various changes for the cosmopolitan libc"
 #ifdef PERL_GIT_UNCOMMITTED_CHANGES
         ,"uncommitted-changes"
 #endif
         PERL_GIT_UNPUSHED_COMMITS    	/* do not remove this line */
-        ,"G4Vi:cosmo - https://github.com/G4Vi/perl5/tree/cosmo Various changes for the cosmopolitan libc"
         ,NULL
 };
 

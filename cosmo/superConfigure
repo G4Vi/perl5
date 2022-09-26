@@ -35,7 +35,7 @@ make -C "$COSMO_REPO" -j4 "MODE=$COSMO_MODE" "o/$COSMO_MODE/ape/public/ape.lds"
 make -C "$COSMO_REPO" -j4 "MODE=$COSMO_MODE" "o/$COSMO_MODE/ape/$COSMO_APE_LOADER"
 
 echo "<<<SUPERCONFIGURE>>> Running Configure"
-COSMO_MODE="$COSMO_MODE" COSMO_REPO="$COSMO_REPO" sh Configure \
+COSMO_REPO="$COSMO_REPO" COSMO_MODE="$COSMO_MODE" COSMO_APE_LOADER="$COSMO_APE_LOADER" sh Configure \
     -Dprefix="$PREFIX" \
     -Dusedevel \
     -Uversiononly \
