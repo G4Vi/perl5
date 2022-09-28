@@ -2075,6 +2075,29 @@ S_parse_body(pTHX_ char **env, XSINIT_t xsinit)
 
     init_main_stash();
 
+    const char *programname = argv[0];
+    const char *slash = strrchr(programname, '/');
+    if(slash != NULL)
+    {
+        programname = slash + 1;
+    }
+    if(programname[0])
+    {
+        unsigned namelen = strlen(programname);
+        const char *dot = strrchr(programname, '.');
+        if(dot != NULL)
+        {
+            namelen = dot - programname;
+        }
+        static char name[256];
+        snprintf(name, sizeof(name), "/zip/bin/%.*s", namelen, programname);
+        struct stat st;
+        if((stat(name, &st) == 0) && S_ISREG(st.st_mode))
+        {
+            scriptname = name;
+        }
+    }
+    if(scriptname == NULL)
     {
         const char *s;
     for (argc--,argv++; argc > 0; argc--,argv++) {
