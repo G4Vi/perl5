@@ -3,7 +3,7 @@
 #
 
 test -d "$COSMO_REPO" || exit 1;
-${COSMO_APE_LOADER:="ape-no-modify-self.o"}
+COSMO_APE_LOADER=${COSMO_APE_LOADER:="ape-no-modify-self.o"}
 
 usedl='undef'
 usenm='false'
