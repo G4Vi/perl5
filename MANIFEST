@@ -27,12 +27,6 @@ configure.com		Configure-equivalent for VMS
 configure.gnu		Crude emulation of GNU configure
 cop.h			Control operator header
 Copying			The GNU General Public License
-cosmo/buildAPPerl.sh			Build Actually Portable Perl
-cosmo/superConfigure			Configure for building Actually Portable Perl
-cosmo/testlogs/ape-debian-9.5-vmware.log				results of make test
-cosmo/testlogs/ape-no-modify-self-debian-9.5-vmware.log	results of make test
-cosmo/testlogs/ape-no-modify-self-ubuntu-20.04-wsl2.log	results of make test
-cosmo/testlogs/ape-ubuntu-20.04-wsl2.log				results of make test
 cpan/.dir-locals.el			Emacs control file
 cpan/Archive-Tar/bin/ptar				the ptar utility
 cpan/Archive-Tar/bin/ptardiff				the ptardiff utility
