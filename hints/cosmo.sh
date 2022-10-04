@@ -8,8 +8,6 @@ COSMO_APE_LOADER=${COSMO_APE_LOADER:="ape-no-modify-self.o"}
 usedl='undef'
 usenm='false'
 so='none'
-usethreads='undef'
-usemultiplicity='undef'
 osname='cosmo'
 osvers=''
 libpth='none'
