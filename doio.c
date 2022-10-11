@@ -55,6 +55,10 @@
 #  define OPEN_EXCL 0
 #endif
 
+#ifdef __COSMOPOLITAN__
+#    include "libc/dce.h"
+#endif
+
 #define PERL_MODE_MAX 8
 #define PERL_FLAGS_MAX 10
 
@@ -2512,7 +2516,16 @@ Perl_do_exec3(pTHX_ const char *incmd, int fd, int do_report)
             }
           doshell:
             PERL_FPU_PRE_EXEC
-            PerlProc_execl(PL_sh_path, "sh", "-c", cmd, (char *)NULL);
+#ifdef __COSMOPOLITAN__
+            if(IsWindows())
+            {
+                PerlProc_execl("/C/Windows/System32/cmd.exe", "/C/Windows/System32/cmd.exe", "/c", cmd, (char *)NULL);
+            }
+            else
+#endif
+            {
+                PerlProc_execl(PL_sh_path, "sh", "-c", cmd, (char *)NULL);
+            }
             PERL_FPU_POST_EXEC
             S_exec_failed(aTHX_ PL_sh_path, fd, do_report);
             goto leave;

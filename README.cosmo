@@ -4,40 +4,46 @@ designed to be readable as is.
 
 =head1 NAME
 
-perlcosmo - Build-once run-anywhere Perl using the cosmopolitan libc
+perlcosmo - Build-once run-anywhere Perl using the Cosmopolitan Libc
 
 =head1 DESCRIPTION
 
-The cosmo platform addition eases building Perl with the cosmopolitan
-libc. When you build with the cosmopolitan libc, the libc is the
-platform as the cosmopolitan libc targets building simultaneous support
+The cosmo platform addition eases building Perl with the Cosmopolitan
+Libc. When you build with the Cosmopolitan Libc, the libc is the
+platform as the Cosmopolitan Libc targets building simultaneous support
 for multiple operating systems (Unixes, Windows, etc) into the same
 binary.
 
 To get the most benefits of the cosmo platform, you likely want to
 build Actually Portable Perl (APPerl) instead of this directly. See
-L<Perl-Dist-APPerl|https://github.com/G4Vi/Perl-Dist-APPerl/blob/master/lib/Perl/Dist/APPerl.pm> .
+L<Perl::Dist::APPerl> ; APPerl Manager (apperlm) includes a front-end
+for building perl from source with the Cosmopolitan Libc. The
+instructions in this document only cover building perl, not building or
+packaging into APPerl (single executable perl with perl modules
+embedded inside).
 
 =head1 BUILD
 
-Download the cosmopolitan libc and build with the desired MODE:
+Download the Cosmopolitan Libc and build with the desired MODE:
 
   git clone https://github.com/jart/cosmopolitan ../cosmopolitan
   make -C ../cosmopolitan -j4 MODE=
 
 Run Configure, but with some environment variables to point it at
-cosmopolitan. Then, make and install like usual.
+cosmopolitan; update COSMO_MODE to the MODE you set before and
+COSMO_REPO to the absolute path of the cosmopolitan repo. Then, make
+and install like usual.
 
   COSMO_MODE= COSMO_REPO="/home/gavin/cosmopolitan" ./Configure -de
   make
   make install
 
-Note the installed binary is assimilated (see cosmopolitan
+Note the installed binary is assimilated (see Cosmopolitan Libc
 --assimilate flag), meaning it only runs on the current operating
 system. The perl.com in the perl repo, however, is actually portable
 and will run on several operating systems. For a solution that builds
-on this, by packing binaries inside of the executable and more, see
-APPerl (link above).
+on this, by packaging perl modules and scripts inside of the executable
+and more, see L<Perl::Dist::APPerl>.
 
 =head1 KNOWN PROBLEMS
 
@@ -47,14 +53,15 @@ cosmo perl is a work in progress, many major issues are present.
 
 =item *
 
-C<system> when a shell is required, does not work when running on
-non-Unix.
+C<system> behavior when a shell is required, depends on the currently
+running operating system. On most systems it uses, C<sh>, but on
+Windows it uses C<cmd.exe>. Therefore, it's still hard to use portably.
+However, it is sufficient for pulling up a pager for L<perldoc> .
 
 =item *
 
-After building, there likely is no easy way to install modules as the
-CPAN, ExtUtils-MakeMaker, etc tests currently fail. Also, only Pure
-Perl modules may be added as perl is build statically.
+After building, only Pure Perl modules may be added as perl is built
+statically.
 
 =item *
 
@@ -64,8 +71,17 @@ the current operating system.
 
 =back
 
+=head1 ACKNOWLEDGEMENTS
+
+The L<Cosmopolitan Libc|https://github.com/jart/cosmopolitan>
+contributors, especially L<Justine Tunney|https://justine.lol/> and
+L<Gautham Venkatasubramanian|https://ahgamut.github.io>.
+Gautham's
+L<Python port|https://ahgamut.github.io/2021/07/13/ape-python/>
+to the Cosmopolitan Libc inspired this port.
+
 =head1 CONTACT
 
 The port in-progress is being done by Gavin Hayes <gahayes@cpan.org>
 
-Last update: 2022-10-01
+Last update: 2022-10-11

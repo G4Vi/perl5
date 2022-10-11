@@ -1931,13 +1931,6 @@ sub page {  # apply a pager to the output file
                 last if system("$pager $output") == 0;
 	    } elsif($self->is_amigaos) {
                 last if system($pager, $output) == 0;
-            } elsif(($^O eq 'cosmo') && (-f '/C/Windows/System32/cmd.exe')) {
-                my $output = $output;
-                $output =~ s/^\/([A-Z])\//$1:\\/;
-                $output =~ s/\//\\/g;
-                my @pagercommand = split(' ', $pager);
-                my @cmd = ('/C/Windows/System32/cmd.exe', '/c', @pagercommand, $output);
-                last if system(@cmd) == 0;
             } else {
                 last if system("$pager \"$output\"") == 0;
             }
