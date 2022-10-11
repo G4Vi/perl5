@@ -157,7 +157,7 @@ hunk.
 #  endif
 static const char * const local_patches[] = {
         NULL
-        ,"G4Vi:cosmo/SHORT_HASH - https://github.com/G4Vi/perl5/commit/HASH various changes to support building with the Cosmopolitan Libc"
+        ,"G4Vi:cosmo/73ecc6c - https://github.com/G4Vi/perl5/commit/73ecc6c6640c61baa00ee91949d502f0fe991db5 various changes to support building with the Cosmopolitan Libc"
 #ifdef PERL_GIT_UNCOMMITTED_CHANGES
         ,"uncommitted-changes"
 #endif
