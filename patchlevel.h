@@ -158,7 +158,7 @@ hunk.
 static const char * const local_patches[] = {
         NULL
         ,"G4Vi:cosmo/73ecc6c - https://github.com/G4Vi/perl5/commit/73ecc6c6640c61baa00ee91949d502f0fe991db5 various changes to support building with the Cosmopolitan Libc"
-        ,"G4Vi:cosmo-apperl/SHORT_HASH - https://github.com/G4Vi/perl5/commit/FULL_HASH add argv[0] /zip/bin script launching"
+        ,"G4Vi:cosmo-apperl/9719db2 - https://github.com/G4Vi/perl5/commit/9719db2dfbb19454177a31d8ce874a61f17a30da add argv[0] /zip/bin script launching"
 #ifdef PERL_GIT_UNCOMMITTED_CHANGES
         ,"uncommitted-changes"
 #endif
