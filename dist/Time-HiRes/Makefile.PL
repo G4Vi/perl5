@@ -81,7 +81,7 @@ __EOD__
             $errornull = '';
         }
 
-        $cccmd = "$Config{'cc'} -o $tmp $ccflags $tmp.c @$LIBS $errornull"
+        $cccmd = "$Config{'cc'} -o $tmp $ccflags $Config{'ldflags'} $tmp.c @$LIBS $Config{'libs'} $errornull"
             unless defined $cccmd;
 
        if ($^O eq 'VMS') {
