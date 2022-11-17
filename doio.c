@@ -56,7 +56,7 @@
 #endif
 
 #ifdef __COSMOPOLITAN__
-#    include "libc/dce.h"
+#    include "libc/runtime/runtime.h"
 #endif
 
 #define PERL_MODE_MAX 8
@@ -2517,15 +2517,10 @@ Perl_do_exec3(pTHX_ const char *incmd, int fd, int do_report)
           doshell:
             PERL_FPU_PRE_EXEC
 #ifdef __COSMOPOLITAN__
-            if(IsWindows())
-            {
-                PerlProc_execl("/C/Windows/System32/cmd.exe", "/C/Windows/System32/cmd.exe", "/c", cmd, (char *)NULL);
-            }
-            else
+            _Exit(_cocmd(3, (char *[]){"system", "-c", cmd, NULL}, environ));
+#else
+            PerlProc_execl(PL_sh_path, "sh", "-c", cmd, (char *)NULL);
 #endif
-            {
-                PerlProc_execl(PL_sh_path, "sh", "-c", cmd, (char *)NULL);
-            }
             PERL_FPU_POST_EXEC
             S_exec_failed(aTHX_ PL_sh_path, fd, do_report);
             goto leave;
