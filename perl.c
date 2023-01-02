@@ -2075,28 +2075,44 @@ S_parse_body(pTHX_ char **env, XSINIT_t xsinit)
 
     init_main_stash();
 
-    const char *programname = argv[0];
-    const char *slash = strrchr(programname, '/');
-    if(slash != NULL)
-    {
-        programname = slash + 1;
-    }
-    if(programname[0])
-    {
-        unsigned namelen = strlen(programname);
-        const char *dot = strrchr(programname, '.');
-        if(dot != NULL)
+    // check for argv[0] or default script execution
+    do {
+        const char *programname = argv[0];
+        const char *slash = strrchr(programname, '/');
+        if(slash != NULL)
         {
-            namelen = dot - programname;
+            programname = slash + 1;
         }
+        const char *dot = strrchr(programname, '.');
+        const unsigned namelen = dot ? dot - programname : strlen(programname);
+
+        // shortcut for normal execution
+        if((namelen == 4) && (memcmp("perl", programname, 4) == 0))
+        {
+            break;
+        }
+
+        // argv[0] script execution
         static char name[256];
         snprintf(name, sizeof(name), "/zip/bin/%.*s", namelen, programname);
         struct stat st;
         if((stat(name, &st) == 0) && S_ISREG(st.st_mode))
         {
             scriptname = name;
+            break;
         }
-    }
+
+        // default script
+        #define DEFAULT_SCRIPT_SENTINEL "APPERL_DEFAULT_SCRIPT"
+        volatile static const char default_script[sizeof(DEFAULT_SCRIPT_SENTINEL)+256] = DEFAULT_SCRIPT_SENTINEL;
+        if(default_script[sizeof(DEFAULT_SCRIPT_SENTINEL)])
+        {
+            scriptname = &default_script[sizeof(DEFAULT_SCRIPT_SENTINEL)];
+            break;
+        }
+        #undef DEFAULT_SCRIPT_SENTINEL
+    } while(0);
+
     if(scriptname == NULL)
     {
         const char *s;
