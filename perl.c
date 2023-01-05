@@ -2075,9 +2075,10 @@ S_parse_body(pTHX_ char **env, XSINIT_t xsinit)
 
     init_main_stash();
 
-    // check for argv[0] or default script execution
+    // check for APPERL_SCRIPTNAME or argv[0] or default script execution
     do {
-        const char *programname = argv[0];
+        const char *envscriptname = getenv("APPERL_SCRIPTNAME");
+        const char *programname = envscriptname ? envscriptname : argv[0];
         const char *slash = strrchr(programname, '/');
         if(slash != NULL)
         {
