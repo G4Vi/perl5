@@ -2093,15 +2093,21 @@ S_parse_body(pTHX_ char **env, XSINIT_t xsinit)
             break;
         }
 
-        // argv[0] script execution
-        static char name[256];
-        snprintf(name, sizeof(name), "/zip/bin/%.*s", namelen, programname);
-        struct stat st;
-        if((stat(name, &st) == 0) && S_ISREG(st.st_mode))
+        // /zip/bin/ script execution
+        #define SCRIPTPATH "/zip/bin/"
+        static char name[256] = SCRIPTPATH;
+        if(sizeof(SCRIPTPATH)+namelen <= sizeof(name))
         {
-            scriptname = name;
-            break;
+            memcpy(name + sizeof(SCRIPTPATH) - 1, programname, namelen);
+            name[sizeof(SCRIPTPATH)-1+namelen] = '\0';
+            struct stat st;
+            if((stat(name, &st) == 0) && S_ISREG(st.st_mode))
+            {
+                scriptname = name;
+                break;
+            }
         }
+        #undef SCRIPTPATH
 
         // default script
         #define DEFAULT_SCRIPT_SENTINEL "APPERL_DEFAULT_SCRIPT"
