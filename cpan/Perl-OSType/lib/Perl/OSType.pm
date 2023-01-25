@@ -55,6 +55,7 @@ my %OSTYPES = qw(
   nto         Unix
   qnx         Unix
   android     Unix
+  cosmo       Unix
 
   dos         Windows
   MSWin32     Windows
