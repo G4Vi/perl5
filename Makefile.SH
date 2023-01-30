@@ -1005,9 +1005,9 @@ lib/buildcustomize.pl: $& $(miniperl_objs) write_buildcustomize.pl
 		$spitshell >>$Makefile <<'!NO!SUBS!'
 lib/buildcustomize.pl: $& $(miniperl_dep) write_buildcustomize.pl
 	-@rm -f miniperl.xok
-	$(CC) $(CLDFLAGS) -o miniperl.elf \
+	$(CC) $(CLDFLAGS) -o miniperl.com.dbg \
 	    $(miniperl_objs) $(libs)
-	$(realpath $(dir $(CC)))/x86_64-linux-musl-objcopy -S -O binary miniperl.elf miniperl.com
+	$(realpath $(dir $(CC)))/x86_64-linux-musl-objcopy -S -O binary miniperl.com.dbg miniperl.com
 	cp miniperl.com $(MINIPERL_EXE)
 	chmod -w miniperl.com
 	./miniperl --assimilate || true
@@ -1069,8 +1069,8 @@ $(PERL_EXE): $& $(perlmain_dep) $(LIBPERL) $(static_ext) ext.libs $(PERLEXPORT) 
 	    esac
         ;;
         cosmo) $spitshell >>$Makefile <<'!NO!SUBS!'
-	$(SHRPENV) $(CC) -o perl.elf $(CLDFLAGS) $(CCDLFLAGS) $(perlmain_objs) $(static_ext) $(LLIBPERL) `cat ext.libs` $(libs)
-	$(realpath $(dir $(CC)))/x86_64-linux-musl-objcopy -S -O binary perl.elf perl.com
+	$(SHRPENV) $(CC) -o perl.com.dbg $(CLDFLAGS) $(CCDLFLAGS) $(perlmain_objs) $(static_ext) $(LLIBPERL) `cat ext.libs` $(libs)
+	$(realpath $(dir $(CC)))/x86_64-linux-musl-objcopy -S -O binary perl.com.dbg perl.com
 	cp perl.com $(PERL_EXE)
 	chmod -w perl.com
 	./perl --assimilate || true
