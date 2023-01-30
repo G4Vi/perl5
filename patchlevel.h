@@ -160,6 +160,7 @@ static const char * const local_patches[] = {
         ,"G4Vi:cosmo/c473e9-73ecc6c - https://github.com/G4Vi/perl5/compare/c473e9~1...73ecc6c various changes to support building with the Cosmopolitan Libc"
         ,"G4Vi:cosmo/2fb034f - https://github.com/G4Vi/perl5/commit/2fb034ffb02db2b3ac09706c954704930c620c0b fix Time-HiRes Configure to work for cosmopolitan"
         ,"G4Vi:cosmo/3643b8b - https://github.com/G4Vi/perl5/commit/3643b8bd369ea1e8715a27ce8821c8e70f2c17e0 add cosmo as Unix in Perl::OSType (fixes Module::Build)"
+        ,"G4Vi:cosmo/e3d8537 - https://github.com/G4Vi/perl5/commit/e3d853703f5c7c951a14e1eed186105cc0e0b7e3 s/perl.elf$/perl.com.dbg/ as perl.com.dbg is useful for --ftrace"
 #ifdef PERL_GIT_UNCOMMITTED_CHANGES
         ,"uncommitted-changes"
 #endif
