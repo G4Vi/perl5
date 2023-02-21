@@ -57,6 +57,7 @@
 
 #ifdef __COSMOPOLITAN__
 #    include "libc/runtime/runtime.h"
+     STATIC_YOINK("glob");
 #endif
 
 #define PERL_MODE_MAX 8
