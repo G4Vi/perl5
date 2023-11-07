@@ -56,6 +56,7 @@
 #endif
 
 #ifdef __COSMOPOLITAN__
+#    define _COSMO_SOURCE
 #    include "libc/dce.h"
 #endif
 
