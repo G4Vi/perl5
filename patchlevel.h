@@ -164,6 +164,7 @@ static const char * const local_patches[] = {
         ,"G4Vi:cosmo/3643b8b - https://github.com/G4Vi/perl5/commit/3643b8bd369ea1e8715a27ce8821c8e70f2c17e0 add cosmo as Unix in Perl::OSType (fixes Module::Build)"
         ,"G4Vi:cosmo/e3d8537 - https://github.com/G4Vi/perl5/commit/e3d853703f5c7c951a14e1eed186105cc0e0b7e3 s/perl.elf$/perl.com.dbg/ as perl.com.dbg is useful for --ftrace"
         ,"G4Vi:cosmo/7138814 - https://github.com/G4Vi/perl5/commit/713881482f9968f4960090d2699bc4cb4a46dc94 update for cosmo 3.0.2, new ape copying"
+        ,"G4Vi:cosmo/ecf4f8d - https://github.com/G4Vi/perl5/commit/ecf4f8ddb6aaad4544b8e16541c52b4dc570b491 revert a no longer needed switch rewrite"
 #ifdef PERL_GIT_UNCOMMITTED_CHANGES
         ,"uncommitted-changes"
 #endif
