@@ -706,17 +706,20 @@ Perl_sharedsv_cond_timedwait(perl_cond *cond, perl_mutex *mut, double abs)
 
     CLANG_DIAG_IGNORE_STMT(-Wthread-safety);
     /* warning: calling function 'pthread_cond_timedwait' requires holding mutex 'mut' exclusively [-Wthread-safety-analysis] */
-    const int ecode = pthread_cond_timedwait(cond, mut, &ts);
+    switch (pthread_cond_timedwait(cond, mut, &ts)) {
 	CLANG_DIAG_RESTORE_STMT;
-    if(ecode == 0)
-        got_it = 1;
-    else if((ecode != ETIMEDOUT)
-#ifdef OEMVS
-    && ((ecode != -1) || (errno != ETIMEDOUT && errno != EAGAIN))
-#endif
-    )
-        Perl_croak_nocontext("panic: cond_timedwait");
 
+        case 0:         got_it = 1; break;
+        case ETIMEDOUT:             break;
+#ifdef OEMVS
+        case -1:
+            if (errno == ETIMEDOUT || errno == EAGAIN)
+                break;
+#endif
+        default:
+            Perl_croak_nocontext("panic: cond_timedwait");
+            break;
+    }
     return (got_it);
 #    endif /* OS2 */
 #  endif /* WIN32 */
