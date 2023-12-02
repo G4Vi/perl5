@@ -613,7 +613,7 @@ esac
 
 $spitshell >>$Makefile <<'!NO!SUBS!'
 
-perltoc_pod_prereqs = extra.pods pod/perl5361delta.pod pod/perlapi.pod pod/perlintern.pod pod/perlmodlib.pod pod/perluniprops.pod
+perltoc_pod_prereqs = extra.pods pod/perl5363delta.pod pod/perlapi.pod pod/perlintern.pod pod/perlmodlib.pod pod/perluniprops.pod
 generated_pods = pod/perltoc.pod $(perltoc_pod_prereqs)
 generated_headers = uudmap.h bitcount.h mg_data.h
 
@@ -1007,9 +1007,7 @@ lib/buildcustomize.pl: $& $(miniperl_dep) write_buildcustomize.pl
 	-@rm -f miniperl.xok
 	$(CC) $(CLDFLAGS) -o miniperl.com.dbg \
 	    $(miniperl_objs) $(libs)
-	$(realpath $(dir $(CC)))/../../../../o//tool/build/fixupobj.com miniperl.com.dbg
 	$(realpath $(dir $(CC)))/x86_64-linux-musl-objcopy -S -O binary miniperl.com.dbg miniperl.com
-	$(realpath $(dir $(CC)))/../../../../o//tool/build/zipcopy.com miniperl.com.dbg miniperl.com
 	cp miniperl.com $(MINIPERL_EXE)
 	chmod -w miniperl.com
 	./miniperl --assimilate || true
@@ -1072,9 +1070,7 @@ $(PERL_EXE): $& $(perlmain_dep) $(LIBPERL) $(static_ext) ext.libs $(PERLEXPORT) 
         ;;
         cosmo) $spitshell >>$Makefile <<'!NO!SUBS!'
 	$(SHRPENV) $(CC) -o perl.com.dbg $(CLDFLAGS) $(CCDLFLAGS) $(perlmain_objs) $(static_ext) $(LLIBPERL) `cat ext.libs` $(libs)
-	$(realpath $(dir $(CC)))/../../../../o//tool/build/fixupobj.com perl.com.dbg
 	$(realpath $(dir $(CC)))/x86_64-linux-musl-objcopy -S -O binary perl.com.dbg perl.com
-	$(realpath $(dir $(CC)))/../../../../o//tool/build/zipcopy.com perl.com.dbg perl.com
 	cp perl.com $(PERL_EXE)
 	chmod -w perl.com
 	./perl --assimilate || true
@@ -1155,9 +1151,9 @@ pod/perlintern.pod: $(MINIPERL_EXE) autodoc.pl embed.fnc
 pod/perlmodlib.pod: $(MINIPERL_EXE) pod/perlmodlib.PL MANIFEST
 	$(MINIPERL) pod/perlmodlib.PL -q
 
-pod/perl5361delta.pod: pod/perldelta.pod
-	$(RMS) pod/perl5361delta.pod
-	$(LNS) perldelta.pod pod/perl5361delta.pod
+pod/perl5363delta.pod: pod/perldelta.pod
+	$(RMS) pod/perl5363delta.pod
+	$(LNS) perldelta.pod pod/perl5363delta.pod
 
 extra.pods: $(MINIPERL_EXE)
 	-@test ! -f extra.pods || rm -f `cat extra.pods`
